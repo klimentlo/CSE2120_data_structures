@@ -103,3 +103,80 @@ print(A_LIST[2])
 print(A_LIST[3])
 '''
 ```  
+
+## Manipulating Data in Lists
+Data in a dynamic list can undergo many processes. They are often summarized with the acronym CRUD
+
+(C)reate (R)ead (U)pdate (D)elete
+
+###Creating Data in Arrays
+#### Append data to the end of a list
+
+To add data to the tail (the end) of a list, use the ```append(DATA)```dot function (.isnumberic() is a dot function) 
+
+```python
+A_LIST = []
+
+A_LIST.append("Hello")
+print(A_LIST) # output ["Hello"]
+
+A_LIST.append("World")
+print(A_LIST) # output ["Hello", "World"]
+```
+
+#### Insert data to a specific index value within the list
+To add data to a specific index position, use the ```insert(DATA)``` dot function. This function should be used sparingly because it may result in mis-addressing data. When a value is inserted into a list, it shifts subsequent index values forward by one.
+
+```python
+A_LIST = ["this", "is", "a", "sentence"]
+A_LIST.insert(2, "not")
+print(A_LIST) # output ["this", "is", "not", "a", "sentence. "]
+```
+
+### Reading Data in Arrays
+All examples of this have been covered in the introduction above
+
+```python
+print(A_LIST[1]) # output "is"
+```
+
+### Updating Data Arrays
+NOTE: tuples cannot update a single value, only the entire tuple. However, to update a single value in a list, the list node can be assigned a new value.
+
+```python
+A_LIST = ["this", "is", "a", "sentence. "]
+A_LIST[0] = "THIS"
+print(A_LIST) # output ["THIS", "is", "a", "sentence"]\
+```
+
+### Deleting Values in Data Arrays
+Deleting data from an array will change the overall length of an array and may re-assign new index values to pre-existing values within the array.
+
+#### Pop data off an array
+To remove a value off an array, the ```pop(INDEX)``` dot function removes the value at the index number. When using .pop() the data is removed off the list, but not destroyed. If desired, the removed data can be stored in  new variable.
+
+NOTE: If no index value is given, .pop() will remove the highest index value data (in other words, the last item in the list)
+
+```python
+A_LIST = ["this", "is", "a", "sentence. "]
+A_LIST.pop()
+print(A_LIST) # output ["This, "is", "a"]
+
+A_LIST.pop(1)
+print(A_LIST) # output ["this", "a"]
+
+VARIABLE = A_LIST.pop(0)
+print(A_LIST) # output ["a"]
+print(VARIABLE) # output ["This"]
+```
+
+.pop() is used to remove an item with a known index value.
+
+#### Remove data from an array
+To remove a value off an array, the ```remove(VALUE)``` dot function will remove the first instance of the value while traversing the array from head to tail (from beginning to end).
+
+```python
+NEW_LIST = [0, 1, 2, 5, 7, 11, 13, 11, 17]
+NEW_LIST.remove(11)  #removes the first value that's 11
+print (NEW_LIST) # output [0, 1, 2, 5, 7, 13, 11, 17]
+```
