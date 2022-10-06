@@ -180,3 +180,55 @@ NEW_LIST = [0, 1, 2, 5, 7, 11, 13, 11, 17]
 NEW_LIST.remove(11)  #removes the first value that's 11
 print (NEW_LIST) # output [0, 1, 2, 5, 7, 13, 11, 17]
 ```
+### Multi-Dimensional Arrays
+Arrays can store more than primitive data, it can store additional data structures. An array that stores additional structures is called a multi-dimensional array. These arrays normally only go two levels deep. Therefore, the most common multi-dimensional arrays are 2D arrays.
+
+### Dictionaries 
+Dictionaries translate information of one data to another data value. It takes the key and transforms it into the value found within the dictionary. This structure is called key-value pair. Keys tend to primitive data types, but can return advanced data types.
+
+NOTE: All keys in a dictionary must be unique, but vaues can be repeated.
+
+```python
+MY_INFO = {
+    "first_name": "Kliment",
+    "last_name": "Lo",
+    "email": "k.lo1@share.epsb.ca",
+    "age": 30,
+    "social-security-number" : "2394023840238"
+    0: "something"
+}
+print(MY_INFO["email"]) # outputs "k.lo1@share.epsb.ca"
+```
+
+#### Parallel Arrays
+Parallel Arrays are two independent lists that shore information based on the index number. Parallel arrays are not multidimensional arrays in the sense of having multiple levels of data; instead, it is linked so that each array uses the index value to tie different types of information together.
+
+```python
+FIRST_NAME = ["Kliment", "Tiffanie", "Karina"]
+LAST_NAME = ["Adopted :( ", "Lo", "Chow"]
+
+print(FIRST_NAME[1], LAST_NAME[1]) # outputs "Kliment Adopted :("
+```
+
+In the example above, the two lists are _linked_ by the index number.
+
+#### 2-Dimensional Arrays
+A 2-Dimensional array has a list in a node of another list. While there are other data structures, like objects, arrays are often list/tuples within other lists/tuples.
+
+NODES with the sublist are identified after first identifying the node in the main list when using square brackets.
+
+```python
+NUMBERS = ((1, 2), (3, 4), (5, 6))
+
+print(len(NUMBERS)) # outputs 3
+print(NUMBERS[1]) # outputs "(3, 4)", which includes the parenthesis and comma
+print(len(NUMBERS[1])) # outputs 2
+print(NUMBERS[1][0]) #output 3
+```
+#### Updating and Deleting Data in 2D Arrays
+Updating and deleting data in 2D arrays is similar to 1D arrays. The program can either update or delete the entire sub array or a value within the sub array.
+```python
+NUMBERS = ((1, 2), (3, 4), (5, 6))
+NUMBERS[0][1] = 5 #((1, 5), (3, 4), (5, 6))
+NUMBERS [0] = (4, 5, 6) # ((4, 5, 6), (3, 4), (5, 6))
+```
