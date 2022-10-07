@@ -33,6 +33,19 @@ ATOMIC_NUM = {
     "Cl" : 17
 }
 
+ELEM_PERIOD = {
+    "H" : 1,
+    "He" : 2,
+    "Na" : 11,
+    "Cl" : 17
+}
+
+ELEM_Group = {
+    "H" : 1,
+    "He" : 2,
+    "Na" : 11,
+    "Cl" : 17
+}
 def intro():
     '''
     displays welcome text for the user
