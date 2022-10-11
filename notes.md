@@ -232,3 +232,92 @@ NUMBERS = ((1, 2), (3, 4), (5, 6))
 NUMBERS[0][1] = 5 #((1, 5), (3, 4), (5, 6))
 NUMBERS [0] = (4, 5, 6) # ((4, 5, 6), (3, 4), (5, 6))
 ```
+
+## Traversing an Array
+__Traversing__ an array uses ```for loop``` to access each node in the array. There are two methods of traversing head-to-tail (ascending index number) through an array.
+```python
+A_LIST = (1, 2, 3, 5, 7, 11)
+
+# METHOD 1: USes an intermediate variable i for index
+for i in range (len(A_LIST)):
+    print (A_LIST[i])
+
+# METHOD 2: Uses an intermediate variable as the data in the node
+for NODE in A_LIST:
+    print(NODE)
+```
+NOTE: The second method of traversing an array head-to-tail does not store the index number
+
+It is possible to traverse an array from tail-to--head
+```python
+A_LIST = (1, 2, 3, 5, 7, 11)
+for i in range(len(A_LIST)-1):
+    print(A_LIST[i])
+'''outputs
+11
+7
+5
+3
+2
+1
+'''
+```
+
+Because the range of a for loop is determined at the start of the loop, and changes to the length of the array wil not change the number of iterations for the loop. Therefore, when shortening an  array during the loop, traversing from tail-to-head till prevent/reduce _index out of range_ errors.
+
+## Miscellaneous
+
+1. Arrays can be added together (but they cannot be subtracted, multiplied, divided, etc.)
+```python
+LIST1 = [1, 2, 3]
+LIST2 = [4, 5, 6]
+LIST_ADD = LIST1 + LIST2
+print (LIST_ADD)
+#output: [1, 2, 3, 4, 5, 6]
+# LIST2 + LIST1 would output [4, 5, 6, 1, 2, 3]
+```
+
+2. Arrays can be assigned multiple variable names
+```python
+LIST = [1, 2, 5, 7, 11]
+NEW_LIST = LIST
+NEW_LIST.pop()
+print(LIST) #output: [1, 2, 5, 7, 11]
+```
+
+In order to copy an array so that it can be altered without changing the original, the data has to be appended into a separate empty array by traversing the array that is being copied.
+
+## Working with Strings
+All strings are lists in disguise! While you're not able to do all actions with a string that you can do with a list, it is possible to create substrings, to identify individual characters, and to traverse Strings
+
+```python
+STRING = "hello world"
+print (STRING[0]) # output 'h'
+print (STRING[2]) # output 'l'
+print (STRING[:2]) # output 'he'
+print(len(STRING)) # output 11 cause there are 11 characters (which also includes the space)
+```
+
+Strings can be separated into a list using the ```.split()``` function. 
+
+```python
+STRING = "hello world"
+STRING_LIST = STRING.split() #['hello', 'world']
+```
+
+When using ```.split("")```, the string inside the parenthesis determines which character is sued ot identify the split. If no string is present, the space character is used. The string used for the split is called the __delimiter__ and is removed during the split.
+
+```python
+STRING = "hello world"
+STRING_LIST = STRING.split("l") # ['he', 'o', 'wor', 'd']
+```
+
+It is possible to combine a list of strings into one string
+
+```python
+STRING_LIST = ["hello", "world"]
+NEW_STRING = " ".join(STRING_LIST)
+print(NEW_STRING) # "hello world"
+```
+
+NOTE: The delimiter is the specified within the quotations of the ```..join()``` function. It is added in between each of the nodes.
