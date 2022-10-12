@@ -251,7 +251,8 @@ NOTE: The second method of traversing an array head-to-tail does not store the i
 It is possible to traverse an array from tail-to--head
 ```python
 A_LIST = (1, 2, 3, 5, 7, 11)
-for i in range(len(A_LIST)-1):
+for i in range(len(A_LIST)-5, -1, -1):
+    # (starting point [must be negative]), (ending point), (size of step [must be negative])
     print(A_LIST[i])
 '''outputs
 11
