@@ -58,6 +58,15 @@ def shuffleDeck(CARDS):
         #randrange(len(CARDS)) will randomize from a smaller range as cards get popped off from the list
     return SHUFFLE_DECK
 
+def drawCards(CARDS):
+    '''
+    draws a card from the top of the deck
+    :param CARDS: (list)
+    :return: (tuple)
+    '''
+    CARDS = CARDS.pop(0)
+    return CARDS
+
 ### OUTPUTS
 
 def displayDeck(CARDS):
@@ -72,6 +81,18 @@ def displayDeck(CARDS):
         DECK_READ = DECK_READ + f"{VALUES[CARDS[i][1]]} of {SUITS[CARDS[i][0]]}, "
         #
     print(DECK_READ)
+
+def displayCard(CARD):
+    '''
+    prints out a card nicely
+    :param CARD: (tuple)
+    :return: (none)
+    '''
+    global SUITS, VALUES
+    print(f"{VALUES[CARD[1]]} of {SUITS[CARD[0]]}")
+
+
+
 # we need a dictionary to translate 0-3 to the correct suit
 # we need a dictionary to translate 0-12 to the correct card
 # we will call these dictionaries into other functions using global
@@ -105,10 +126,19 @@ VALUES = {
 # 6, 19, 32, and 45 should all be 7s
 
 from random import randrange
-CARDS = makeDeck()
-displayDeck(CARDS)
-CARDS = shuffleDeck(CARDS)
-displayDeck(CARDS)
+if __name__ == "__main__":
+    CARDS = makeDeck()
+    displayDeck(CARDS)
+    CARDS = shuffleDeck(CARDS)
+    displayDeck(CARDS)
+    CARD = drawCards(CARDS)
+    displayCard(CARD)
+    displayDeck(CARDS)
+
+
+
+
+
 
 
 '''
