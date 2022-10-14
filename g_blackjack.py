@@ -28,6 +28,7 @@ def chooseAction():
     else:
         return CHOICE
 
+#def askContinue():
 
 ### PROCESSING
 def gameSetup():
@@ -41,6 +42,9 @@ def gameSetup():
     for i in range(2):
         PLAYER_HAND.append(drawCards(DECK))
         DEALER_HAND.append(drawCards(DECK))
+    POINT = calculatePoints(PLAYER_HAND)
+    return POINT
+
 
 def calculatePoints(HAND):
     '''
@@ -57,17 +61,33 @@ def calculatePoints(HAND):
             # if we have an ace, add 11
             POINTS = POINTS + 11
             ACES = ACES + 1
-            return POINTS
         elif HAND[i][1] > 8:
             # 9 = 10, 10 = jack, 11 = queen, king = 12
             # which are each worth 10 each
             POINTS = POINTS + 10
-            return POINTS
         else:
             POINTS = POINTS + HAND[i][1] + 1
-            return POINTS
+
             # we need to add 1 to HAND [i]][1] because each card's number is 1 less than it's value (because we started at 0)
         # allow ACES to be worth 1 if POINTS > 21
+        while POINTS > 21 and ACES > 0:
+            POINTS = POINTS - 10
+            ACES = ACES - 1
+    return POINTS
+
+def determineWinner(PLAYER, DEALER):
+    if PLAYER > 21:
+        print("You went over 21! You lose!")
+    elif DEALER > 21:
+        print("Dealer went over 21! You win!")
+    else:
+        if PLAYER > DEALER:
+            print("You had a higher sum than the Dealer. You win!")
+        elif DEALER > PLAYER:
+            print("Dealer had a higher sum than your deck. You lose!")
+        else:
+            print("It was a tie!")
+
 ### OUTPUTS
 def displayCards():
     '''
@@ -93,8 +113,9 @@ PLAYER_STAY = False
 
 # --- MAIN PROGRAM CODE --- #
 if __name__ == "__main__":
-    gameSetup()
+    POINT = gameSetup()
     displayCards()
+    print(f"The sum of your cards is currently {POINT} ")
     while not PLAYER_STAY:
         ACTION = chooseAction()
         if ACTION == 1:
@@ -103,5 +124,10 @@ if __name__ == "__main__":
         else:
             PLAYER_STAY = True
         displayDeck(PLAYER_HAND)
+        if DEALER_POINTS < 17:
+            DEALER_HAND.append(drawCards(DECK))
+        DEALER_POINTS = calculatePoints(DEALER_HAND)
         PLAYER_POINTS = calculatePoints(PLAYER_HAND)
         print(PLAYER_POINTS)
+        print(DEALER_POINTS)
+        WINNER = determineWinner(PLAYER_POINTS, DEALER_POINTS)
