@@ -41,7 +41,7 @@ Static arrays are preferred for things like...
 * Storing identification information of an individual
 * Storing last semester's grades
 
-Oftentimes, tuples are used to store information that's difficult to change. For example, your nae links to your student ID. One should never be changed in a program without also changing the other.
+Oftentimes, tuples are used to store information that's difficult to change. For example, your name links to your student ID. One should never be changed in a program without also changing the other.
 
 ### Data Structure Indexing and Calling
 
@@ -56,10 +56,10 @@ To reference a specific value, include the list name followed immediately with t
 ```python
 A_LIST = ["This", "is", "a", "sentence"]
 print (A_LIST[3]) # outputs "sentence".
-```
-
+``` 
+ 
 Array indexing has forward (head-to-tail) indexing and backwards (tail-to-head) indexing. Either index number will call teh data value, and each data has a forward and backwards index number.
-
+ 
 ```python
 A_LIST = ["This", "is", "a", "sentence"]
 # index      0      1    2        3
@@ -76,24 +76,24 @@ SUBLIST = A_LIST[1:3] #SUBLIST equals ["is", "a"]
 # SUBLIST will equal items 1 and 2 from A_LIST, but will not include item 3
 ```
  
-There are two shortcuts to creating sublists from the beginning and the end of the list. When starting a sublist from the beginning of the list, omit the first number; to have a sublist go to the end, omit the last number,
+There are two shortcuts to creating sub lists from the beginning and the end of the list. When starting a sublist from the beginning of the list, omit the first number; to have a sublist go to the end, omit the last number,
 
 ```python
 SUBLIST2 = A_LIST[:3] # SUBLISTS equals ["This", "is" "a"] DOES NOT INCLUDE ITEM 3
 SUBLIST3 = A_LIST [1:] # SUBLIST3 equals ["is", "a", "list."] DOES NOT INCLUDE ITEM 1
 ```
 
-NOTE: When starting a sublist from the beginning of the list, the sublist __WIL NOT__ include your stopping point. When ending a sublist at the end of a list, the sublist __WILL__ include your starting point.
+NOTE: When starting a sublist from the beginning of the list, the sublist __WILL NOT__ include your stopping point. When ending a sublist at the end of a list, the sublist __WILL__ include your starting point.
 
 #### Lists Length'
 All lists also have a length property, where the total number of data values is callable using the ````len(LIST)```` function.
 
 ```python
-A_LIST [ "This", "is", "a", "sentence."]
+A_LIST = [ "This", "is", "a", "sentence."]
 print(len(A_LIST)) # output 4              
 
 for i range(len(A_LIST)):
-print(A_LIST[i])
+    print(A_LIST[i])
 
 '''
 equals
@@ -128,9 +128,9 @@ print(A_LIST) # output ["Hello", "World"]
 To add data to a specific index position, use the ```insert(DATA)``` dot function. This function should be used sparingly because it may result in mis-addressing data. When a value is inserted into a list, it shifts subsequent index values forward by one.
 
 ```python
-A_LIST = ["this", "is", "a", "sentence"]
+A_LIST = ["This", "is", "a", "sentence"]
 A_LIST.insert(2, "not")
-print(A_LIST) # output ["this", "is", "not", "a", "sentence. "]
+print(A_LIST) # output ["This", "is", "not", "a", "sentence. "]
 ```
 
 ### Reading Data in Arrays
@@ -146,7 +146,7 @@ NOTE: tuples cannot update a single value, only the entire tuple. However, to up
 ```python
 A_LIST = ["this", "is", "a", "sentence. "]
 A_LIST[0] = "THIS"
-print(A_LIST) # output ["THIS", "is", "a", "sentence"]\
+print(A_LIST) # output ["THIS", "is", "a", "sentence"]
 ```
 
 ### Deleting Values in Data Arrays
@@ -163,7 +163,7 @@ A_LIST.pop()
 print(A_LIST) # output ["This, "is", "a"]
 
 A_LIST.pop(1)
-print(A_LIST) # output ["this", "a"]
+print(A_LIST) # output ["This", "a"]
 
 VARIABLE = A_LIST.pop(0)
 print(A_LIST) # output ["a"]
@@ -186,7 +186,7 @@ Arrays can store more than primitive data, it can store additional data structur
 ### Dictionaries 
 Dictionaries translate information of one data to another data value. It takes the key and transforms it into the value found within the dictionary. This structure is called key-value pair. Keys tend to primitive data types, but can return advanced data types.
 
-NOTE: All keys in a dictionary must be unique, but vaues can be repeated.
+NOTE: All keys in a dictionary must be unique, but values can be repeated.
 
 ```python
 MY_INFO = {
@@ -229,8 +229,8 @@ print(NUMBERS[1][0]) #output 3
 Updating and deleting data in 2D arrays is similar to 1D arrays. The program can either update or delete the entire sub array or a value within the sub array.
 ```python
 NUMBERS = ((1, 2), (3, 4), (5, 6))
-NUMBERS[0][1] = 5 #((1, 5), (3, 4), (5, 6))
-NUMBERS [0] = (4, 5, 6) # ((4, 5, 6), (3, 4), (5, 6))
+NUMBERS[0][1] = 5 # ((1, 5), (3, 4), (5, 6))
+NUMBERS[0] = (4, 5, 6) # ((4, 5, 6), (3, 4), (5, 6))
 ```
 
 ## Traversing an Array
@@ -238,7 +238,7 @@ __Traversing__ an array uses ```for loop``` to access each node in the array. Th
 ```python
 A_LIST = (1, 2, 3, 5, 7, 11)
 
-# METHOD 1: USes an intermediate variable i for index
+# METHOD 1: Uses an intermediate variable i for index
 for i in range (len(A_LIST)):
     print (A_LIST[i])
 
