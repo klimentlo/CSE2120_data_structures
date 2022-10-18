@@ -224,7 +224,7 @@ print(len(NUMBERS)) # outputs 3
 print(NUMBERS[1]) # outputs "(3, 4)", which includes the parenthesis and comma
 print(len(NUMBERS[1])) # outputs 2
 print(NUMBERS[1][0]) #output 3
-```
+``` 
 #### Updating and Deleting Data in 2D Arrays
 Updating and deleting data in 2D arrays is similar to 1D arrays. The program can either update or delete the entire sub array or a value within the sub array.
 ```python
