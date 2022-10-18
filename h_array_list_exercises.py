@@ -36,6 +36,7 @@ def exercise3():
         NEW_LIST.append(A_LIST[i] ** 2)
     print(NEW_LIST)
 exercise3()
+
 print('''-------------------------------------------------------------------------------------------------------------
 Exercise 4:''')
 def exercise4():
@@ -43,7 +44,19 @@ def exercise4():
     LIST2 = ["Dear", "Sir"]
     LIST3 = []
     for i in range(len(LIST1)):
-        LIST3.append(LIST1[i] + LIST2[i])
-        LIST3.append(LIST1[i] + LIST2[i])
+        for j in range(len(LIST2)):
+            LIST3.append(LIST1[i] + LIST2[j])
     print(LIST3)
 exercise4()
+
+print('''-------------------------------------------------------------------------------------------------------------
+Exercise 5:''')
+def exercise5():
+    LIST1 = [10,20,30,40]
+    LIST2 = [100,200,300,400]
+    LIST3 = []
+    for i in range(len(LIST1)):
+        print(f"{LIST1[i]} {LIST2[(i*-1)-1]}")
+
+
+exercise5()
