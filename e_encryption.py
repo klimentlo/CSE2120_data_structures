@@ -67,7 +67,7 @@ def encryptMessage(TEXT):
     TEXT_LIST = []
     for i in range(len(TEXT)):
         TEXT_LIST.append(TEXT[i])
-    print(TEXT_LIST)
+    print(f"{TEXT_LIST} bookmark 1")
     for i in range(len(TEXT_LIST)):
         if TEXT_LIST[i] != " ":
             TEXT_LIST[i] = CODE[TEXT_LIST[i]]
