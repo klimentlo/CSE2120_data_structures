@@ -7,7 +7,7 @@ date: 10/18/2022
 '''
 import math
 
-# --- DICTIONARIES --- #
+# --- DICTIONARIES/TUPLE/ARRAY SETUP --- #
 positiveCharge = {
     "li" : 1,
     "mg" : 2,
@@ -31,25 +31,23 @@ negativeCharge = {
 }
 
 ionMass = {
-    "li" : 6.9410,
-    "mg" : 24.305,
-    "ca" : 40.078,
-    "sr" : 87.620,
-    "ba" : 137.33,
-    "fe" : 55.845,
-    "hg" : 200.59,
-    "pb" : 207.20,
-    "cu" : 63.546,
-    "ag" : 107.87,
-    "tl" : 204.38,
-    "f" : 18.998,
-    "cl" : 35.453,
-    "br" : 79.904,
-    "i" : 126.90,
-    "so2" : 64.066,
+    "li" : 6.9410, # 0
+    "mg" : 24.305, # 1
+    "ca" : 40.078, # 2
+    "sr" : 87.620, # 3
+    "ba" : 137.33, # 4
+    "fe" : 55.845, # 5
+    "hg" : 200.59, # 6
+    "pb" : 207.20, # 7
+    "cu" : 63.546, # 8
+    "ag" : 107.87, # 9
+    "tl" : 204.38, # 10
+    "f" : 18.998, # 11
+    "cl" : 35.453, # 12
+    "br" : 79.904, # 13
+    "i" : 126.90, # 14
+    "so" : 96.06, # 15
 }
-
-
 # --- FUNCTIONS --- #
 
 ### INPUTS
@@ -125,3 +123,39 @@ if __name__ == "__main__":
        positiveVolume = getVolume()
        positiveConcentration = getConcentration()
        mass = getMass(ion)
+
+#NEW CONTENT
+       molesP = moleCal(volumeP, concentrationP)
+       molesN = moleCal(volumeN, concentrationN)
+       limitedReactant = limitReactantCal(ionP, ionN, molesN, molesP)
+
+def moleCal(volume, concentration):
+    '''
+    calculates the amount of moles in the ion
+    :param MOLES:
+    :return:
+    '''
+    moles = volume * concentration
+    return moles
+
+def limitReactantCal(ionP, ionN, molesN, molesP):
+    '''
+    idk
+    :param moles:
+    :return:
+    '''
+    global positiveCharge, negativeCharge
+    NEGREACTANT = molesP * (negativeCharge[ionN]/positiveCharge[ionP])
+    if NEGREACTANT < molesN:
+        coefficient[1] = coefficient[1] + 1
+coefficient = []
+coefficient = [1, 1, 1]
+
+# I PLAN THIS TO BE A DISPLAY THING, WHERE IN THE MENU, YOU CAN TYPE "ELEMENTS"
+DISPLAY = (("Lithium", 6.9410), ("Magnesium", 24.305), ("Calcium", 40.078), ("Strontium", 87.620), ("Barium", 137.33), ("Iron", 55.845), ("Mercury", 200.59), ("Lead", 207.20) , ("Copper", 63.546), ("Silver", 107.87), ("Thallium", 204.38), ("Fluorine", 18.998), ("Chlorine", 35.453), ("Bromine", 79.904), ("Iodine", 126.90), ("Sulfate", 96.06))
+if askDisplay True:
+    for i in range(len(DISPLAY)):
+        for j in range(len(DISPLAY)):
+            print(f"Name: {DISPLAY[i][j]}")
+            idk im gonna cry
+
