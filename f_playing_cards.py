@@ -80,7 +80,7 @@ def displayDeck(CARDS):
     for i in range(len(CARDS)):
         DECK_READ = DECK_READ + f"{VALUES[CARDS[i][1]]} of {SUITS[CARDS[i][0]]}, "
         #
-    print(DECK_READ)
+        print(f"DECKREAD : {DECK_READ}" )
 
 def displayCard(CARD):
     '''

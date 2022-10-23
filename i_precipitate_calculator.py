@@ -8,6 +8,121 @@ date: 10/18/2022
 import math
 
 # --- DICTIONARIES/TUPLE/ARRAY SETUP --- #
+def possibilities():
+    '''
+    creates 52 cards in a 2D array
+    :return: (list)
+    '''
+    CARDS = []
+    # make an empty list for all the cards (if we make a new variable and copy the "CARDS" list onto it and change the new variable list, it will also change the original list. But if we make an empty list, then it wont change both.
+
+    # make an empty array for each suit and append cards to each suit, then add them all together to make the full dark
+    RowNh = []
+    for j in range(5): #NH = 1, NO = 2, CIO3 = 3, CIO4 = 4, CHC00 = 5
+        for i in range(4):
+            RowNh.append((j+1, i+1))
+        #CLUBS is suit 3
+
+    RowF = [] # F = 6
+    for i in range(8):
+        RowF.append((6, i+1))
+        # DIAMONDS will be suit 0
+
+    RowCl = []    # Cl = 7, Br = 8, I = 9
+    for j in range(3):
+        for i in range(5):
+            RowCl.append((j+7, i+1))
+
+    RowSo = [] #So = 10
+    for i in range(7):
+        RowSo.append((10, i+1))
+        #CLUBS is suit 2
+    Soluable = displayPositibilities(RowNh, RowF, RowCl, RowSo)
+    return Soluable
+
+def displayPositibilities(RowNh, RowF, RowCl, RowSo):
+    '''
+    prints out a card nicely
+    :param CARD: (tuple)
+    :return: (none)
+    '''
+    global negIons, posIonsNh, posIonsF, posIonsCl, posIonsSo
+    ROWNH = []
+    for i in range(len(RowNh)):
+        ROWNH.append(negIons[RowNh[i][0]] + posIonsNh[RowNh[i][1]])
+
+
+    ROWF = []
+    for i in range(len(RowF)):
+        ROWF.append(negIons[RowF[i][0]] + posIonsF[RowF[i][1]])
+
+
+    ROWCL = []
+    for i in range(len(RowCl)):
+        ROWCL.append(negIons[RowCl[i][0]] + posIonsCl[RowCl[i][1]])
+
+
+    ROWSO = []
+    for i in range(len(RowSo)):
+        ROWSO.append(negIons[RowSo[i][0]] + posIonsSo[RowSo[i][1]])
+
+
+    POSSIBILITIES = ROWNH + ROWF + ROWCL + ROWSO
+    print(POSSIBILITIES)
+    return POSSIBILITIES
+        #
+
+
+# librarys to create all the possible things that create a solid
+negIons = {
+    1 : "nh",
+    2 : "no",
+    3 : "cio3",
+    4 : "cio4",
+    5 : "chcoo",
+    6 : "f",
+    7 : "cl",
+    8 : "br",
+    9 : "i",
+    10 : "so"
+}
+
+posIonsNh = {
+    1 : "rbcio",
+    2 : "cscio",
+    3 : "agchcoo",
+    4 : "hg(chcoo)"
+}
+
+posIonsF = {
+    1 : "li",
+    2 : "mg",
+    3 : "ca",
+    4 : "sr",
+    5 : "ba",
+    6 : "fe",
+    7 : "hg",
+    8 : "pb",
+}
+
+posIonsCl = {
+    1 : "cu",
+    2 : "ag",
+    3 : "hg",
+    4 : "pb",
+    5 : "tl",
+}
+
+posIonsSo = {
+    1 : "ca",
+    2 : "sr",
+    3 : "ba",
+    4 : "ag",
+    5 : "hg",
+    6 : "pb",
+    7 : "ra",
+}
+
 positiveCharge = {
     "li" : 1,
     "mg" : 2,
@@ -20,6 +135,7 @@ positiveCharge = {
     "cu" : 1,
     "ag" : 1,
     "tl" : 1,
+    "ra" : 2
 }
 
 negativeCharge = {
@@ -27,7 +143,7 @@ negativeCharge = {
     "cl" : 1,
     "br" : 1,
     "i" : 1,
-    "so2" : 2,
+    "so" : 2,
 }
 
 ionMass = {
@@ -42,12 +158,15 @@ ionMass = {
     "cu" : 63.546, # 8
     "ag" : 107.87, # 9
     "tl" : 204.38, # 10
-    "f" : 18.998, # 11
-    "cl" : 35.453, # 12
-    "br" : 79.904, # 13
-    "i" : 126.90, # 14
-    "so" : 96.06, # 15
+    "ra" : 227.00, #11
+    "f" : 18.998, # 12
+    "cl" : 35.453, # 13
+    "br" : 79.904, # 14
+    "i" : 126.90, # 15
+    "so" : 96.06, # 16
 }
+
+
 # --- FUNCTIONS --- #
 
 ### INPUTS
@@ -175,6 +294,14 @@ def moleCal(volume, concentration):
    moles = volume * concentration
    return moles
 
+def checkPossible(IonN, IonP, possibilities):
+    together = IonN + IonP
+    for i in range(len(possibilities)):
+        print(i)
+        if together == possibilities[i]:
+            print("omg its possible")
+            return True
+    print("not possible :( ")
 def limitReactantCal(ionP, ionN, molesN, molesP):
    '''
    idk
@@ -186,6 +313,7 @@ def limitReactantCal(ionP, ionN, molesN, molesP):
    if NEGREACTANT < molesN:
        print("balls")
    return NEGREACTANT
+
 
 ### OUTPUTS
 def intro():
@@ -203,9 +331,7 @@ Welcome to the chemistry precipitate calculator!
 # --- MAIN PROGRAM --- #
 if __name__ == "__main__":
    intro()
-   DISPLAY = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-   for i in range(len(DISPLAY)):
-      print(DISPLAY)
+   possibilities = possibilities()
    while True:
       #get and calculate all things needed about positive ion
       ionP = positiveIon()
@@ -221,6 +347,7 @@ if __name__ == "__main__":
       concentrationN = getConcentration()
       molesP = moleCal(volumeP, concentrationP)
       molesN = moleCal(volumeN, concentrationN)
+      checkPossible(ionN, ionP, possibilities)
       limitedReactant = limitReactantCal(ionP, ionN, molesN, molesP)
 
 # WHEN YOU PRITN OUT THE ANSWER TO THE USER, MAKE SURE TO CONVERT THE cl or fe or whatever BACK INTO CAPITALIZATION. USING THE FUNCTION .capitalize() (capitalizes the first letter)
