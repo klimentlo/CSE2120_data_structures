@@ -18,26 +18,29 @@ def possibilities():
 
     # make an empty array for each suit and append cards to each suit, then add them all together to make the full dark
     RowNh = []
-    for j in range(5): #NH = 1, NO = 2, CIO3 = 3, CIO4 = 4, CHC00 = 5
+    for j in range(12): #NH = 1, NO = 2, CIO3 = 3, CIO4 = 4, CHC00 = 5
         for i in range(4):
             RowNh.append((j+1, i+1))
         #CLUBS is suit 3
 
     RowF = [] # F = 6
     for i in range(8):
-        RowF.append((6, i+1))
+        RowF.append((13, i+1))
         # DIAMONDS will be suit 0
 
     RowCl = []    # Cl = 7, Br = 8, I = 9
     for j in range(3):
         for i in range(5):
-            RowCl.append((j+7, i+1))
+            RowCl.append((j+14, i+1))
 
     RowSo = [] #So = 10
     for i in range(7):
-        RowSo.append((10, i+1))
+        RowSo.append((17, i+1))
         #CLUBS is suit 2
+    Soluable = RowNh + RowF + RowCl + RowSo
+    print(Soluable)
     Soluable = displayPositibilities(RowNh, RowF, RowCl, RowSo)
+    print(Soluable)
     return Soluable
 
 def displayPositibilities(RowNh, RowF, RowCl, RowSo):
@@ -68,23 +71,29 @@ def displayPositibilities(RowNh, RowF, RowCl, RowSo):
 
 
     POSSIBILITIES = ROWNH + ROWF + ROWCL + ROWSO
-    print(POSSIBILITIES)
     return POSSIBILITIES
         #
 
 
 # librarys to create all the possible things that create a solid
 negIons = {
-    1 : "nh",
-    2 : "no",
-    3 : "cio3",
-    4 : "cio4",
-    5 : "chcoo",
-    6 : "f",
-    7 : "cl",
-    8 : "br",
-    9 : "i",
-    10 : "so"
+    1 : "h",
+    2 : "li",
+    3 : "na",
+    4 : "k",
+    5 : "rb",
+    6 : "cs",
+    7 : "fr",
+    8 : "nh",
+    9 : "no",
+    10 : "cio3",
+    11 : "cio4",
+    12 : "chcoo",
+    13 : "f",
+    14 : "cl",
+    15 : "br",
+    16 : "i",
+    17 : "so"
 }
 
 posIonsNh = {
@@ -102,7 +111,7 @@ posIonsF = {
     5 : "ba",
     6 : "fe",
     7 : "hg",
-    8 : "pb",
+    8 : "pb"
 }
 
 posIonsCl = {
@@ -110,7 +119,7 @@ posIonsCl = {
     2 : "ag",
     3 : "hg",
     4 : "pb",
-    5 : "tl",
+    5 : "tl"
 }
 
 posIonsSo = {
@@ -120,7 +129,7 @@ posIonsSo = {
     4 : "ag",
     5 : "hg",
     6 : "pb",
-    7 : "ra",
+    7 : "ra"
 }
 
 positiveCharge = {
@@ -132,20 +141,31 @@ positiveCharge = {
     "fe" : 2,
     "hg" : 2,
     "pb" : 2,
-    "cu" : 1,
+    "cu" : 2,
     "ag" : 1,
     "tl" : 1,
-    "ra" : 2
+    "ra" : 2,
+    "nh": 1
 }
 
 negativeCharge = {
+    "no" : 1,
+    "cio3" : 1,
+    "cio4" : 1,
+    "chcoo" : 1,
     "f" : 1,
     "cl" : 1,
     "br" : 1,
     "i" : 1,
-    "so" : 2,
+    "so" : 2
 }
 
+zeroCharge = {
+    "rbcio": 0,  # 17
+    "cscio": 0,  # 18
+    "agchcoo": 0,  # 19
+    "hg(chcoo)": 0  # 20
+}
 ionMass = {
     "li" : 6.9410, # 0
     "mg" : 24.305, # 1
@@ -164,6 +184,16 @@ ionMass = {
     "br" : 79.904, # 14
     "i" : 126.90, # 15
     "so" : 96.06, # 16
+    "rbcio" : 232.35, # 17
+    "cscio" : 232.35, # 18
+    "agchcoo" : 166.9122, # 19
+    "hg(chcoo)" : 318.678, # 20
+    "nh" : 18.04,
+    "no" : 62.0049,
+    "cio3" : 83.45,
+    "cio4" : 99.45,
+    "chcoo" : 60.05
+
 }
 
 
@@ -193,8 +223,8 @@ def checkNeg(NUMBER):
    :return:
    '''
    NUMBER = checkFloat(NUMBER)
-   if NUMBER < 0:
-       print("This value can't be a negative! ")
+   if NUMBER < 0 or NUMBER == 0:
+       print("This value can't be negative or zero! ")
        NEW_NUM = input("Please input a new number.")
        return checkNeg(NEW_NUM)
    else:
@@ -208,7 +238,6 @@ def positiveIon():
     :return:(str)
     '''
     ION = input("Please input the positive reacting ion: (no charges) ")
-    print(ION)
     ION = ION.lower()
     try:
         positiveCharge[ION] # try to put the user's input into the list of positive charges, if it exists then it returns the ion they chose.
@@ -223,7 +252,6 @@ def negativeIon():
    :return: (str)
    '''
    ION = input("Please input the negative reacting ion: (no charges) ")
-   print(ION)
    ION = ION.lower()
    try:
        negativeCharge[ION]  # try to put the user's input into the list of negative charges, if it exists then it returns the ion they chose.
@@ -262,7 +290,6 @@ def getMass(ION):
    :return:
    '''
    MASS = ionMass[ION]
-   print(MASS)
    return MASS
 
 def getChargeP(ION):
@@ -294,66 +321,98 @@ def moleCal(volume, concentration):
    moles = volume * concentration
    return moles
 
-def checkPossible(IonN, IonP, possibilities):
-    together = IonN + IonP
+def checkPossible(ionN, ionP, possibilities):
+    TOGETHER = ionN + ionP
     for i in range(len(possibilities)):
-        print(i)
-        if together == possibilities[i]:
+        if TOGETHER == possibilities[i]:
             print("omg its possible")
             return True
     print("not possible :( ")
-def limitReactantCal(ionP, ionN, molesN, molesP):
-   '''
-   idk
-   :param moles:
-   :return:
-   '''
-   global positiveCharge, negativeCharge
-   NEGREACTANT = molesP * (negativeCharge[ionN]/positiveCharge[ionP])
-   if NEGREACTANT < molesN:
-       print("balls")
-   return NEGREACTANT
+    return False
 
+def balanceEquation(ionP, ionN):
+
+    global positiveCharge, negativeCharge
+    coefficient = (1, 1) # first one is coefficient for P, second one is coefficient for N
+    CHARGEP = positiveCharge[ionP]
+    CHARGEN = negativeCharge[ionN]
+
+    if ionN == "so":
+        subscript = 4
+        if CHARGEP > CHARGEN:
+            coefficient = (1, 2)
+        elif CHARGEN > CHARGEP:
+            coefficient = (2,1)
+        BALANCED = f" {coefficient[0]}{ionP} + {coefficient[1]}{ionN}{subscript} = {ionP}{coefficient[0]} {ionN}{coefficient[1] * subscript}"
+        print(BALANCED)
+
+    else:
+        if CHARGEP > CHARGEN:
+            coefficient = (1, 2)
+        elif CHARGEN > CHARGEP:
+            coefficient = (2,1)
+        BALANCED = f" {coefficient[0]}{ionP} + {coefficient[1]}{ionN} = {ionP}{coefficient[0]} {ionN}{coefficient[1]}"
+        print(BALANCED)
+    return coefficient
+
+def limitReactantCal(molesP, molesN, coefficient):
+    '''
+    idk
+    :param moles:
+    :return:
+    '''
+    nCL = molesP * (coefficient[1]/coefficient[0])
+    if nCL > molesN:
+        print("The anion is the limiting reagent")
+    elif molesN > nCL:
+        print("The cation is the limiting reagent")
+    else:
+        print("Three is no limiting reagent, they are equal!")
+    return 0
+
+def calMassPrecipitate(mol)
 
 ### OUTPUTS
 def intro():
-   '''
-   is the introduction of what this is
-   :return: (none)
-   '''
-   print("""
-Welcome to the chemistry precipitate calculator!   
-""")
+    '''
+    is the introduction of what this is
+    :return: (none)
+    '''
+    print("""
+    Welcome to the chemistry precipitate calculator!   
+    s
+    """)
 ### dont forget to fulfull all the requirements, ALL OF THEM
 
 
 
 # --- MAIN PROGRAM --- #
+RUN = True
 if __name__ == "__main__":
-   intro()
-   possibilities = possibilities()
-   while True:
-      #get and calculate all things needed about positive ion
-      ionP = positiveIon()
-      massP = getMass(ionP)
-      chargeP = getChargeP(ionP)
-      volumeP = getVolume()
-      concentrationP = getConcentration()
-      #get and calculate all things needed about negative ion
-      ionN = negativeIon()
-      massN = getMass(ionN)
-      chargeN = getChargeN(ionN)
-      volumeN = getVolume()
-      concentrationN = getConcentration()
-      molesP = moleCal(volumeP, concentrationP)
-      molesN = moleCal(volumeN, concentrationN)
-      checkPossible(ionN, ionP, possibilities)
-      limitedReactant = limitReactantCal(ionP, ionN, molesN, molesP)
+    intro()
+    possibilities = possibilities()
+        while RUN == True:
+        #get and calculate all things needed about positive ion
+        ionP = positiveIon()
+        massP = getMass(ionP)
+        chargeP = getChargeP(ionP)
+        volumeP = getVolume()
+        concentrationP = getConcentration()
+        #get and calculate all things needed about negative ion
+        ionN = negativeIon()
+        massN = getMass(ionN)
+        chargeN = getChargeN(ionN)
+        volumeN = getVolume()
+        concentrationN = getConcentration()
+        molesP = moleCal(volumeP, concentrationP)
+        molesN = moleCal(volumeN, concentrationN)
+        RUN = checkPossible(ionN, ionP, possibilities)
+        coefficient = balanceEquation(ionP, ionN)
+        limitedReactant = limitReactantCal(molesP, molesN, coefficient)
+        mass = calMassPrecipitate()
 
 # WHEN YOU PRITN OUT THE ANSWER TO THE USER, MAKE SURE TO CONVERT THE cl or fe or whatever BACK INTO CAPITALIZATION. USING THE FUNCTION .capitalize() (capitalizes the first letter)
 
-coefficient = []
-coefficient = [1, 1, 1]
 
 # I PLAN THIS TO BE A DISPLAY THING, WHERE IN THE MENU, YOU CAN TYPE "ELEMENTS"
 DISPLAY = (("Lithium", 6.9410), ("Magnesium", 24.305), ("Calcium", 40.078), ("Strontium", 87.620), ("Barium", 137.33), ("Iron", 55.845), ("Mercury", 200.59), ("Lead", 207.20) , ("Copper", 63.546), ("Silver", 107.87), ("Thallium", 204.38), ("Fluorine", 18.998), ("Chlorine", 35.453), ("Bromine", 79.904), ("Iodine", 126.90), ("Sulfate", 96.06))
