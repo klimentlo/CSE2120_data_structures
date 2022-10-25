@@ -84,23 +84,23 @@ negIons = {
     5 : "rb",
     6 : "cs",
     7 : "fr",
-    8 : "nh",
-    9 : "no",
+    8 : "nh4",
+    9 : "no3",
     10 : "cio3",
     11 : "cio4",
-    12 : "chcoo",
+    12 : "ch3coo",
     13 : "f",
     14 : "cl",
     15 : "br",
     16 : "i",
-    17 : "so"
+    17 : "so4"
 }
 
 posIonsNh = {
-    1 : "rbcio",
-    2 : "cscio",
-    3 : "agchcoo",
-    4 : "hg(chcoo)"
+    1 : "rbcio4",
+    2 : "cscio4",
+    3 : "agch3coo",
+    4 : "hg2(ch3coo)2"
 }
 
 posIonsF = {
@@ -110,14 +110,14 @@ posIonsF = {
     4 : "sr",
     5 : "ba",
     6 : "fe",
-    7 : "hg",
+    7 : "hg2",
     8 : "pb"
 }
 
 posIonsCl = {
     1 : "cu",
     2 : "ag",
-    3 : "hg",
+    3 : "hg2",
     4 : "pb",
     5 : "tl"
 }
@@ -127,9 +127,9 @@ posIonsSo = {
     2 : "sr",
     3 : "ba",
     4 : "ag",
-    5 : "hg",
+    5 : "hg2",
     6 : "pb",
-    7 : "ra"
+    7 : "ra4"
 }
 
 positiveCharge = {
@@ -139,41 +139,41 @@ positiveCharge = {
     "sr" : 2,
     "ba" : 2,
     "fe" : 2,
-    "hg" : 2,
+    "hg2" : 2,
     "pb" : 2,
-    "cu" : 2,
+    "cu" : 1,
     "ag" : 1,
     "tl" : 1,
     "ra" : 2,
-    "nh": 1
+    "nh4": 1
 }
 
 negativeCharge = {
-    "no" : 1,
+    "no3" : 1,
     "cio3" : 1,
     "cio4" : 1,
-    "chcoo" : 1,
+    "ch3coo" : 1,
     "f" : 1,
     "cl" : 1,
     "br" : 1,
     "i" : 1,
-    "so" : 2
+    "so4" : 2
 }
 
 zeroCharge = {
-    "rbcio": 0,  # 17
-    "cscio": 0,  # 18
-    "agchcoo": 0,  # 19
-    "hg(chcoo)": 0  # 20
+    "rbcio4": 0,  # 17
+    "cscio4": 0,  # 18
+    "agch3coo": 0,  # 19
+    "hg2(ch3coo)2": 0  # 20
 }
 ionMass = {
-    "li" : 6.9410, # 0
+    "li" : 6.941, # 0
     "mg" : 24.305, # 1
     "ca" : 40.078, # 2
     "sr" : 87.620, # 3
     "ba" : 137.33, # 4
     "fe" : 55.845, # 5
-    "hg" : 200.59, # 6
+    "hg2" : 200.59, # 6
     "pb" : 207.20, # 7
     "cu" : 63.546, # 8
     "ag" : 107.87, # 9
@@ -183,16 +183,16 @@ ionMass = {
     "cl" : 35.453, # 13
     "br" : 79.904, # 14
     "i" : 126.90, # 15
-    "so" : 96.06, # 16
+    "so4" : 96.06, # 16
     "rbcio" : 232.35, # 17
     "cscio" : 232.35, # 18
     "agchcoo" : 166.9122, # 19
-    "hg(chcoo)" : 318.678, # 20
-    "nh" : 18.04,
-    "no" : 62.0049,
+    "hg2(ch3coo)2" : 318.678, # 20
+    "nh4" : 18.04,
+    "no3" : 62.0049,
     "cio3" : 83.45,
     "cio4" : 99.45,
-    "chcoo" : 60.05
+    "ch3coo" : 60.05
 
 }
 
@@ -237,7 +237,7 @@ def positiveIon():
     requests for the positive ion
     :return:(str)
     '''
-    ION = input("Please input the positive reacting ion: (no charges) ")
+    ION = input("Please input a positive reacting ion: (no charges) ")
     ION = ION.lower()
     try:
         positiveCharge[ION] # try to put the user's input into the list of positive charges, if it exists then it returns the ion they chose.
@@ -251,7 +251,7 @@ def negativeIon():
    requests for the negative ion
    :return: (str)
    '''
-   ION = input("Please input the negative reacting ion: (no charges) ")
+   ION = input("Please input a negative reacting ion: (no charges) ")
    ION = ION.lower()
    try:
        negativeCharge[ION]  # try to put the user's input into the list of negative charges, if it exists then it returns the ion they chose.
@@ -265,7 +265,7 @@ def getConcentration():
    requests for the concentration of the mixture
    :return: (float)
    '''
-   CONCENTRATION = input("Please input how concentrated the fluid is: ")
+   CONCENTRATION = input("What is the concentration of the solution? (mol/L) ")
    CONCENTRATION = checkFloat(CONCENTRATION)
    CONCENTRATION = checkNeg(CONCENTRATION)
    return CONCENTRATION
@@ -275,11 +275,20 @@ def getVolume():
    requests for the volume of the mixture
    :return: (float)
    '''
-   VOLUME = input("Please input how many liters of fluid there is: ")
+   VOLUME = input("What is the volume of the solution? (L) ")
    VOLUME = checkFloat(VOLUME)
    VOLUME = checkNeg(VOLUME)
    return VOLUME
 
+def askContinue():
+    answer = input("Would you like to make another calculation? (y/n) ")
+    if answer == "Y" or answer == "y" or answer == "":
+        return True
+    elif answer == "N" or answer == "n":
+        exit()
+    else:
+        print("That was not y or n! ")
+        askContinue()
 
 ### PROCESSING
 
@@ -333,44 +342,40 @@ def checkPossible(ionN, ionP, possibilities):
 def balanceEquation(ionP, ionN):
 
     global positiveCharge, negativeCharge
-    coefficient = (1, 1) # first one is coefficient for P, second one is coefficient for N
     CHARGEP = positiveCharge[ionP]
     CHARGEN = negativeCharge[ionN]
-
-    if ionN == "so":
-        subscript = 4
-        if CHARGEP > CHARGEN:
-            coefficient = (1, 2)
-        elif CHARGEN > CHARGEP:
-            coefficient = (2,1)
-        BALANCED = f" {coefficient[0]}{ionP} + {coefficient[1]}{ionN}{subscript} = {ionP}{coefficient[0]} {ionN}{coefficient[1] * subscript}"
-        print(BALANCED)
-
+    if CHARGEP > CHARGEN:
+        coefficient = ("", 2)
+        molarRatio = (1 , 2)
+    elif CHARGEN > CHARGEP:
+        coefficient = (2,"")
+        molarRatio = (2 , 1)
     else:
-        if CHARGEP > CHARGEN:
-            coefficient = (1, 2)
-        elif CHARGEN > CHARGEP:
-            coefficient = (2,1)
-        BALANCED = f" {coefficient[0]}{ionP} + {coefficient[1]}{ionN} = {ionP}{coefficient[0]} {ionN}{coefficient[1]}"
-        print(BALANCED)
-    return coefficient
+        coefficient = ("", "")
+        molarRatio = (1, 1)
+    print(f" {coefficient[0]}{ionP} + {coefficient[1]}{ionN} = {ionP}{coefficient[0]} {ionN}{coefficient[1]}")
+    return molarRatio
 
-def limitReactantCal(molesP, molesN, coefficient):
+
+def limitReactantCal(molesP, molesN, ionN, ionP,coefficient):
     '''
     idk
     :param moles:
     :return:
     '''
-    nCL = molesP * (coefficient[1]/coefficient[0])
-    if nCL > molesN:
-        print("The anion is the limiting reagent")
-    elif molesN > nCL:
-        print("The cation is the limiting reagent")
+    print(f"Coefficient: {coefficient}")
+    print(f"Positive solution moles: {molesP}")
+    print(f"Negatve solution moles: {molesN}")
+    nN = molesP * (coefficient[1]/coefficient[0])
+    if nN > molesN:
+        print(f"The {ionN} is the limiting reagent")
+    elif molesN > nN:
+        print(f"The {ionP} is the limiting reagent")
     else:
-        print("Three is no limiting reagent, they are equal!")
+        print("There is no limiting reagent, they are equal!")
     return 0
 
-def calMassPrecipitate(mol)
+calMassPrecipitate()
 
 ### OUTPUTS
 def intro():
@@ -379,19 +384,43 @@ def intro():
     :return: (none)
     '''
     print("""
-    Welcome to the chemistry precipitate calculator!   
-    s
+    Welcome to the chemistry precipitate calculator! Here is the section of the solubility table you can choose from! 
+    
+    ------------------------------------------------------------------------
+    |            | Group 1 Ions  |              |            |             |
+    |            |     NH4       |              |            |             |
+    |    Ions    |     NO3       |      F       |     Cl     |     SO4     |
+    |            |     CIO3      |              |     Br     |             |
+    |            |     CIO4      |              |     I      |             |
+    |            |    CH3COO     |              |            |             |
+    |------------|---------------------------------------------------------|
+    |            |               |             |            |              |
+    |            |               |             |            |              |
+    |   Aqueous  |      most     |     most    |    most    |     most     |
+    |            |               |             |            |              |
+    |            |               |             |            |              |
+    |------------|---------------|-------------|------------|--------------|     
+    |            |               |             |     Li     |      Ca      |
+    |            |     RbCIO4    |     Cu      |     Mg     |      Sr      |
+    |            |     CsCIO4    |     Ag      |     Ca     |      Ba      |
+    |   Solid    |    AgCH3COO   |     Hg2     |     Sr     |      Ag      |
+    |            |  Hg2(CH3COO)2 |     Pb      |     Ba     |      Hg2     |
+    |            |               |     Tl      |     Fe     |      Pb      |
+    |            |               |             |     Hg2    |      Ra      |
+    |            |               |             |     Pb     |              |
+    ------------------------------------------------------------------------  
+                                       
+                                       
     """)
 ### dont forget to fulfull all the requirements, ALL OF THEM
 
 
 
 # --- MAIN PROGRAM --- #
-RUN = True
 if __name__ == "__main__":
     intro()
     possibilities = possibilities()
-        while RUN == True:
+    while True:
         #get and calculate all things needed about positive ion
         ionP = positiveIon()
         massP = getMass(ionP)
@@ -406,10 +435,15 @@ if __name__ == "__main__":
         concentrationN = getConcentration()
         molesP = moleCal(volumeP, concentrationP)
         molesN = moleCal(volumeN, concentrationN)
-        RUN = checkPossible(ionN, ionP, possibilities)
-        coefficient = balanceEquation(ionP, ionN)
-        limitedReactant = limitReactantCal(molesP, molesN, coefficient)
-        mass = calMassPrecipitate()
+        possible = checkPossible(ionN, ionP, possibilities)
+        if possible == True:
+            coefficient = balanceEquation(ionP, ionN)
+            ionN.capitalize()
+            ionP.capitalize()
+            limitedReactant = limitReactantCal(molesP, molesN, ionN, ionP,coefficient)
+            massPrecipitate = calMassPrecipitate()
+        askContinue()
+
 
 # WHEN YOU PRITN OUT THE ANSWER TO THE USER, MAKE SURE TO CONVERT THE cl or fe or whatever BACK INTO CAPITALIZATION. USING THE FUNCTION .capitalize() (capitalizes the first letter)
 

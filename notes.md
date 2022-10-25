@@ -5,7 +5,7 @@ Date structures are organizational, management, and formatting tools for the sto
 ## Types of Data Structures in Python
 ### Tuple
 A _Tuple_ is a static data structure, where data is immutable (cannot be changed). All data are declared when the variable is created
-```python
+```python 
 # A Tuple 
 A_TUPLE = (1, 3, 5.0, 7, "eleven", 13)
 A_TUPLE = (1, 3, 5.0, 7, "eleven", 17)
