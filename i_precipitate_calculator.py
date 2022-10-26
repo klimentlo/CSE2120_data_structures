@@ -353,29 +353,42 @@ def balanceEquation(ionP, ionN):
     else:
         coefficient = ("", "")
         molarRatio = (1, 1)
-    print(f" {coefficient[0]}{ionP} + {coefficient[1]}{ionN} = {ionP}{coefficient[0]} {ionN}{coefficient[1]}")
+    print(f" {coefficient[0]}{ionP} + {coefficient[1]}{ionN} = {ionP}{coefficient[0]}{ionN}{coefficient[1]}")
     return molarRatio
 
 
-def limitReactantCal(molesP, molesN, ionN, ionP,coefficient):
+def limitReactantCal(molesP, molesN, ionN, ionP, coefficient):
     '''
     idk
     :param moles:
     :return:
     '''
-    print(f"Coefficient: {coefficient}")
-    print(f"Positive solution moles: {molesP}")
-    print(f"Negatve solution moles: {molesN}")
+    global positiveCharge, negativeCharge
     nN = molesP * (coefficient[1]/coefficient[0])
+
+    IONNN = ionN
+    IONNN.capitalize()
+    IONPP = ionP
+    IONPP.capitalize()
+
     if nN > molesN:
-        print(f"The {ionN} is the limiting reagent")
+        print(f"The {IONNN} is the limiting reagent")
+        return (molesN, coefficient[1])
     elif molesN > nN:
-        print(f"The {ionP} is the limiting reagent")
+        print(f"The {IONPP} is the limiting reagent")
+        return (molesP, coefficient[0])
     else:
         print("There is no limiting reagent, they are equal!")
-    return 0
+        return (molesP, coefficient[1], coefficient[0])
 
-calMassPrecipitate()
+def calMassPrecipitate(ionP, ionN, limitedReactant, coefficient):
+
+    global ionMass
+    MASS = limitedReactant[0] * (1 / limitedReactant[1])
+    FINAL_MASS = MASS * ((ionMass[ionP] * coefficient[0]) + (ionMass[ionN] * coefficient[1]))
+    print(MASS)
+    print(FINAL_MASS)
+
 
 ### OUTPUTS
 def intro():
@@ -400,14 +413,14 @@ def intro():
     |            |               |             |            |              |
     |            |               |             |            |              |
     |------------|---------------|-------------|------------|--------------|     
-    |            |               |             |     Li     |      Ca      |
-    |            |     RbCIO4    |     Cu      |     Mg     |      Sr      |
-    |            |     CsCIO4    |     Ag      |     Ca     |      Ba      |
-    |   Solid    |    AgCH3COO   |     Hg2     |     Sr     |      Ag      |
-    |            |  Hg2(CH3COO)2 |     Pb      |     Ba     |      Hg2     |
-    |            |               |     Tl      |     Fe     |      Pb      |
-    |            |               |             |     Hg2    |      Ra      |
-    |            |               |             |     Pb     |              |
+    |            |               |     Li      |            |      Ca      |
+    |            |     RbCIO4    |     Mg      |     Cu     |      Sr      |
+    |            |     CsCIO4    |     Ca      |     Ag     |      Ba      |
+    |   Solid    |    AgCH3COO   |     Sr      |     Hg2    |      Ag      |
+    |            |  Hg2(CH3COO)2 |     Ba      |     Pb     |      Hg2     |
+    |            |               |     Fe      |     Tl     |      Pb      |
+    |            |               |     Hg      |            |      Ra      |
+    |            |               |     Pb      |            |              |
     ------------------------------------------------------------------------  
                                        
                                        
@@ -440,8 +453,8 @@ if __name__ == "__main__":
             coefficient = balanceEquation(ionP, ionN)
             ionN.capitalize()
             ionP.capitalize()
-            limitedReactant = limitReactantCal(molesP, molesN, ionN, ionP,coefficient)
-            massPrecipitate = calMassPrecipitate()
+            limitedReactant = limitReactantCal(molesP, molesN, ionN, ionP, coefficient)
+            massPrecipitate = calMassPrecipitate(ionP, ionN, limitedReactant, coefficient)
         askContinue()
 
 
