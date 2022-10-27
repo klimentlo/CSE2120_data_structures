@@ -47,3 +47,25 @@ def exercise4():
         LIST3.append(LIST1[i] + LIST2[i])
     print(LIST3)
 exercise4()
+print('''-------------------------------------------------------------------------------------------------------------
+Exercise 5:''')
+def exercise5():
+    list1 = [10, 20, 30, 40]
+    list2 = [100, 200, 300, 400]
+    list3 = []
+    for i in range(len(list1)):
+        print(f" {list1[i]} {list2[(i*-1)-1]}")
+exercise5()
+print('''-------------------------------------------------------------------------------------------------------------
+Exercise 6:''')
+def exercise6():
+    list1 = []
+    list1 = ["Mike", "", "Emma", "Kelly", "", "Brad"]
+    print(list1)
+    for i in range(len(list1)):
+        if list1[i] == "":
+            list1.pop(i)
+            print(list1)
+            print(i)
+    print("balls")
+exercise6()
