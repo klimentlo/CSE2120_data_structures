@@ -431,7 +431,7 @@ def displayMass(ionP, ionF, massPrecipitate):
 
     IONP = ionP.capitalize()
     IONF = ionF.capitalize()
-    massPrecipitate = (massPrecipitate,2)
+    massPrecipitate = round(massPrecipitate,2)
     print(f"The mass of {IONP + IONF} is {massPrecipitate} grams. ")
 
 
