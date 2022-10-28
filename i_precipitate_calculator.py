@@ -37,10 +37,9 @@ def possibilities():
     for i in range(7):
         RowSo.append((17, i+1))
         #CLUBS is suit 2
+
     Soluable = RowNh + RowF + RowCl + RowSo
-    print(Soluable)
     Soluable = displayPositibilities(RowNh, RowF, RowCl, RowSo)
-    print(Soluable)
     return Soluable
 
 def displayPositibilities(RowNh, RowF, RowCl, RowSo):
@@ -172,7 +171,7 @@ ionMass = {
     "sr" : 87.620, # 3
     "ba" : 137.33, # 4
     "fe" : 55.845, # 5
-    "hg2" : 200.59, # 6
+    "hg2" : 401.18, # 6
     "pb" : 207.20, # 7
     "cu" : 63.546, # 8
     "ag" : 107.87, # 9
@@ -201,37 +200,6 @@ ionMass = {
 # --- FUNCTIONS --- #
 
 ### INPUTS
-
-## Check functions
-def checkFloat(NUMBER):
-   '''
-   checks if the input is a float
-   :param NUMBER:
-   :return:
-   '''
-   try:
-       NUMBER = float(NUMBER)
-       return NUMBER
-   except:
-       print("That is not a number! ")
-       NEW_NUM = input("Please input a number.")
-       return checkFloat(NEW_NUM)
-
-def checkNeg(NUMBER):
-   '''
-   checks if the number is a negative
-   :param NUMBER:
-   :return:
-   '''
-   NUMBER = checkFloat(NUMBER)
-   if NUMBER < 0 or NUMBER == 0:
-       print("This value can't be negative or zero! ")
-       NEW_NUM = input("Please input a new number.")
-       return checkNeg(NEW_NUM)
-   else:
-       return NUMBER
-
-# OTHER
 
 def positiveIon():
     '''
@@ -291,6 +259,36 @@ def askContinue():
         print("That was not y or n! ")
         askContinue()
 
+## Check functions
+def checkFloat(NUMBER):
+   '''
+   checks if the input is a float
+   :param NUMBER:
+   :return:
+   '''
+   try:
+       NUMBER = float(NUMBER)
+       return NUMBER
+   except:
+       print("That is not a number! ")
+       NEW_NUM = input("Please input a number.")
+       return checkFloat(NEW_NUM)
+
+def checkNeg(NUMBER):
+   '''
+   checks if the number is a negative
+   :param NUMBER:
+   :return:
+   '''
+   NUMBER = checkFloat(NUMBER)
+   if NUMBER < 0 or NUMBER == 0:
+       print("This value can't be negative or zero! ")
+       NEW_NUM = input("Please input a new number.")
+       return checkNeg(NEW_NUM)
+   else:
+       return NUMBER
+
+
 ### PROCESSING
 
 def getMass(ION):
@@ -335,9 +333,8 @@ def checkPossible(ionN, ionP, possibilities):
     TOGETHER = ionN + ionP
     for i in range(len(possibilities)):
         if TOGETHER == possibilities[i]:
-            print("omg its possible")
             return True
-    print("not possible :( ")
+    print("The two ions will not create a precipitate. ")
     return False
 
 def balanceEquation(ionP, ionN):
@@ -354,7 +351,9 @@ def balanceEquation(ionP, ionN):
     else:
         coefficient = ("", "")
         molarRatio = (1, 1)
-    print(f" {coefficient[0]}{ionP} + {coefficient[1]}{ionN} = {ionP}{coefficient[0]}{ionN}{coefficient[1]}")
+    IONN = ionN.capitalize()
+    IONPP = ionP.capitalize()
+    print(f" {coefficient[0]}{IONPP} + {coefficient[1]}{IONN} = {IONPP}{coefficient[0]}{IONN}{coefficient[1]}")
     return molarRatio
 
 
@@ -367,16 +366,13 @@ def limitReactantCal(molesP, molesN, ionN, ionP, coefficient):
     global positiveCharge, negativeCharge
     nN = molesP * (coefficient[1]/coefficient[0])
 
-    IONNN = ionN
-    IONNN.capitalize()
-    IONPP = ionP
-    IONPP.capitalize()
-
+    IONN = ionN.capitalize()
+    IONP = ionP.capitalize()
     if nN > molesN:
-        print(f"The {IONNN} is the limiting reagent")
+        print(f"The {IONN} is the limiting reagent")
         return (molesN, coefficient[1])
     elif molesN > nN:
-        print(f"The {IONPP} is the limiting reagent")
+        print(f"The {IONP} is the limiting reagent")
         return (molesP, coefficient[0])
     else:
         print("There is no limiting reagent, they are equal!")
@@ -387,9 +383,7 @@ def calMassPrecipitate(ionP, ionN, limitedReactant, coefficient):
     global ionMass
     MASS = limitedReactant[0] * (1 / limitedReactant[1])
     FINAL_MASS = MASS * ((ionMass[ionP] * coefficient[0]) + (ionMass[ionN] * coefficient[1]))
-    print(MASS)
-    print(FINAL_MASS)
-
+    return FINAL_MASS
 
 ### OUTPUTS
 def intro():
@@ -398,36 +392,48 @@ def intro():
     :return: (none)
     '''
     print("""
-    Welcome to the chemistry precipitate calculator! Here is the section of the solubility table you can choose from! 
-    
-    ------------------------------------------------------------------------
-    |            | Group 1 Ions  |              |            |             |
-    |            |     NH4       |              |            |             |
-    |    Ions    |     NO3       |      F       |     Cl     |     SO4     |
-    |            |     CIO3      |              |     Br     |             |
-    |            |     CIO4      |              |     I      |             |
-    |            |    CH3COO     |              |            |             |
-    |------------|---------------------------------------------------------|
-    |            |               |             |            |              |
-    |            |               |             |            |              |
-    |   Aqueous  |      most     |     most    |    most    |     most     |
-    |            |               |             |            |              |
-    |            |               |             |            |              |
-    |------------|---------------|-------------|------------|--------------|     
-    |            |               |     Li      |            |      Ca      |
-    |            |     RbCIO4    |     Mg      |     Cu     |      Sr      |
-    |            |     CsCIO4    |     Ca      |     Ag     |      Ba      |
-    |   Solid    |    AgCH3COO   |     Sr      |     Hg2    |      Ag      |
-    |            |  Hg2(CH3COO)2 |     Ba      |     Pb     |      Hg2     |
-    |            |               |     Fe      |     Tl     |      Pb      |
-    |            |               |     Hg      |            |      Ra      |
-    |            |               |     Pb      |            |              |
-    ------------------------------------------------------------------------  
-                                       
+    Welcome to the chemistry precipitate calculator! Here is the section of the solubility table you can choose from!                                        
                                        
     """)
-### dont forget to fulfull all the requirements, ALL OF THEM
 
+def menu():
+    print("""
+    
+    
+             Solubility of Some Common Iconic Compounds in Water at 298.15K
+        ------------------------------------------------------------------------
+        |            | Group 1 Ions  |              |            |             |
+        |            |     NH4       |              |            |             |
+        |    Ions    |     NO3       |      F       |     Cl     |     SO4     |
+        |    (-)     |     CIO3      |              |     Br     |             |
+        |            |     CIO4      |              |     I      |             |    
+        |            |    CH3COO     |              |            |             |
+        |------------|---------------------------------------------------------|
+        |            |               |             |            |              |
+        |   Aqueous  |               |             |            |              |
+        |            |      most     |     most    |    most    |     most     |
+        |   (very)   |               |             |            |              |
+        |  (soluble) |               |             |            |              |
+        |------------|---------------|-------------|------------|--------------|     
+        |            |               |     Li      |            |      Ca      |
+        |            |     RbCIO4    |     Mg      |     Cu     |      Sr      |
+        |            |     CsCIO4    |     Ca      |     Ag     |      Ba      |
+        |   Solid    |    AgCH3COO   |     Sr      |     Hg2    |      Ag      |
+        |    (+)     |  Hg2(CH3COO)2 |     Ba      |     Pb     |      Hg2     |
+        |            |               |     Fe      |     Tl     |      Pb      |
+        |            |               |     Hg      |            |      Ra      |
+        |            |               |     Pb      |            |              |
+        ------------------------------------------------------------------------  
+    
+""")
+
+def displayMass(ionP, ionF, massPrecipitate):
+    '''displays the final mass'''
+
+    IONP = ionP.capitalize()
+    IONF = ionF.capitalize()
+    massPrecipitate = round(massPrecipitate,2)
+    print(f"The mass of {IONP + IONF} is {massPrecipitate} grams. ")
 
 
 # --- MAIN PROGRAM --- #
@@ -435,6 +441,7 @@ if __name__ == "__main__":
     intro()
     possibilities = possibilities()
     while True:
+        menu()
         #get and calculate all things needed about positive ion
         ionP = positiveIon()
         massP = getMass(ionP)
@@ -452,10 +459,9 @@ if __name__ == "__main__":
         possible = checkPossible(ionN, ionP, possibilities)
         if possible == True:
             coefficient = balanceEquation(ionP, ionN)
-            ionN.capitalize()
-            ionP.capitalize()
             limitedReactant = limitReactantCal(molesP, molesN, ionN, ionP, coefficient)
             massPrecipitate = calMassPrecipitate(ionP, ionN, limitedReactant, coefficient)
+            displayMass(ionP, ionN, massPrecipitate)
         askContinue()
 
 
