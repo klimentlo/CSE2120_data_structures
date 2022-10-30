@@ -17,8 +17,8 @@ def possibilities():
 
     # make an empty array for each suit and append cards to each suit, then add them all together to make the full dark
     RowNh = []
-    RowNh.append((1, 1)) # works differently from the rest of the groups 1 = cio4, 1 = rb
-    RowNh.append((1, 6))  # 1 = cio4, 6 = cs
+    RowNh.append((1, 1)) # works differently from the rest of the groups 1 = clo4, 1 = rb
+    RowNh.append((1, 6))  # 1 = clo4, 6 = cs
     RowNh.append((5, 9)) # 5 = ch3coo, 9 = ag
     RowNh.append((5, 10)) # 5 = ch3coo, 10 = hg2
 
@@ -235,8 +235,17 @@ def balanceEquation(ionP, ionN):
     else:
         coefficient = ("", "")
         molarRatio = (1, 1)
-    IONN = ionN.capitalize() # capitalizes the ionN
-    IONPP = ionP.capitalize() # capitalizes the ionP
+
+    if ionP == "nh4": # if it's nh4
+        IONPP = ionP.upper() #capitalize everything
+    else:
+        IONPP = ionP.capitalize() # capitalize first letter
+
+    if ionN == "clo3" or ionN == "clo4" or ionN == "ch3coo" or ionN == "so4" or ionN == "no3":
+        IONN = ionN.upper() # capitalize entire thing
+    else:
+        IONN = ionN.capitalize() # capitalize first thing
+
     print(f" {coefficient[0]}{IONPP} + {coefficient[1]}{IONN} = {IONPP}{coefficient[0]}{IONN}{coefficient[1]}")
     return molarRatio
 
@@ -254,8 +263,17 @@ def limitReactantCal(molesP, molesN, ionN, ionP, coefficient):
     global positiveCharge, negativeCharge
     nN = molesP * (coefficient[1]/coefficient[0]) # multiplies the # of molesP by the molar ratio
     noLim = [molesP, coefficient[1], coefficient[0]]
-    IONN = ionN.capitalize()
-    IONP = ionP.capitalize()
+
+    if ionP == "nh4":
+        IONP = ionP.upper()
+    else:
+        IONP = ionP.capitalize()
+
+    if ionN == "clo3" or ionN == "clo4" or ionN == "ch3coo" or ionN == "so4" or ionN == "no3":
+        IONN = ionN.upper()
+    else:
+        IONN = ionN.capitalize()
+
     if nN > molesN: # if # of negative moles required is > than the amount of molesN we have, molesN is the limiting reagant
         print(f"The {IONN} is the limiting reagent")
         return [molesN, coefficient[1]] # used in the calMassPrecipitate function
@@ -285,7 +303,7 @@ def calMassPrecipitate(ionP, ionN, limitedReactant, coefficient):
 
 # librarys to create all the possible things that create a solid
 negIons = {
-    1 : "cio4",
+    1 : "clo4",
     2 : "li",
     3 : "na",
     4 : "k",
@@ -365,8 +383,8 @@ positiveCharge = {
 
 negativeCharge = {
     "no3" : 1,
-    "cio3" : 1,
-    "cio4" : 1,
+    "clo3" : 1,
+    "clo4" : 1,
     "ch3coo" : 1,
     "f" : 1,
     "cl" : 1,
@@ -401,9 +419,9 @@ ionMass = {
     "fr": 223,
     "nh4" : 18.04,
     "no3" : 62.0049,
-    "cio3" : 83.45,
-    "cio4" : 99.45,
-    "ch3coo" : 60.05,
+    "clo3" : 83.45,
+    "clo4" : 99.45,
+    "ch3coo" : 59.05, #or 60.05 idk
 }
 
 
@@ -425,35 +443,43 @@ def menu():
                             |            | Group 1 Ions  |              |            |             |
                             |            |     NH4       |              |            |             |
                             |    Ions    |     NO3       |      F       |     Cl     |     SO4     |
-                            |    (-)     |     CIO3      |              |     Br     |             |
-                            |            |     CIO4      |              |     I      |             |    
+                            |    (-)     |     CLO3      |              |     Br     |             |
+                            |            |     CLO4      |              |     I      |             |    
                             |            |    CH3COO     |              |            |             |
                             |------------|---------------------------------------------------------|
-                            |            |               |             |            |              |
-                            |   Aqueous  |               |             |            |              |
-                            |            |      most     |     most    |    most    |     most     |
-                            |   (very)   |               |             |            |              |
-                            |  (soluble) |               |             |            |              |
-                            |------------|---------------|-------------|------------|--------------|     
-                            |            |               |     Li      |            |      Ca      |
-                            |            |     RbCIO4    |     Mg      |     Cu     |      Sr      |
-                            |            |     CsCIO4    |     Ca      |     Ag     |      Ba      |
-                            |   Solid    |    AgCH3COO   |     Sr      |     Hg2    |      Ag      |
-                            |    (+)     |  Hg2(CH3COO)2 |     Ba      |     Pb     |      Hg2     |
-                            |            |               |     Fe      |     Tl     |      Pb      |
-                            |            |               |     Hg      |            |      Ra      |
-                            |            |               |     Pb      |            |              |
+                            |            |               |              |            |             |
+                            |   Aqueous  |               |              |            |             |
+                            |            |      most     |     most     |    most    |     most    |
+                            |   (very)   |               |              |            |             |
+                            |  (soluble) |               |              |            |             |
+                            |------------|---------------|--------------|------------|-------------|     
+                            |            |               |     Li       |            |      Ca     |
+                            |            |     RbCLO4    |     Mg       |     Cu     |      Sr     |
+                            |            |     CsCLO4    |     Ca       |     Ag     |      Ba     |
+                            |   Solid    |    AgCH3COO   |     Sr       |     Hg2    |      Ag     |
+                            |    (+)     |  Hg2(CH3COO)2 |     Ba       |     Pb     |      Hg2    |
+                            |            |               |     Fe       |     Tl     |      Pb     |
+                            |            |               |     Hg       |            |      Ra     |
+                            |            |               |     Pb       |            |             |
                             ------------------------------------------------------------------------  
     
 """)
 
-def displayMass(ionP, ionF, massPrecipitate):
+def displayMass(ionP, ionN, massPrecipitate):
     '''displays the final mass'''
 
-    IONP = ionP.capitalize()
-    IONF = ionF.capitalize()
+    if ionP == "nh4":
+        IONP = ionP.upper()
+    else:
+        IONP = ionP.capitalize()
+
+    if ionN == "clo3" or ionN == "clo4" or ionN == "ch3coo" or ionN == "so4" or ionN == "no3":
+        IONN = ionN.upper()
+    else:
+        IONN = ionN.capitalize()
+
     massPrecipitate = round(massPrecipitate,2)
-    print(f"The mass of {IONP + IONF} is {massPrecipitate} grams. ")
+    print(f"The mass of {IONP + IONN} is {massPrecipitate} grams. ")
 
 
 # --- MAIN PROGRAM --- #
