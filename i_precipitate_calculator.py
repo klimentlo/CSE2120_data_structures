@@ -10,35 +10,32 @@ import math
 # --- DICTIONARIES/TUPLE/ARRAY SETUP --- #
 def possibilities():
     '''
-    creates 52 cards in a 2D array
+    creates all the possible precipitates on the soluability table, and storing them in a 2D array
     :return: (list)
     '''
     # make an empty list for all the cards (if we make a new variable and copy the "CARDS" list onto it and change the new variable list, it will also change the original list. But if we make an empty list, then it wont change both.
 
     # make an empty array for each suit and append cards to each suit, then add them all together to make the full dark
     RowNh = []
-    RowNh.append((1, 1)) # works differently from the rest of the groups
-    RowNh.append((1, 6))
-    RowNh.append((5, 9))
-    RowNh.append((5, 9))
-    RowNh.append((5, 10))
-        #CLUBS is suit 3
+    RowNh.append((1, 1)) # works differently from the rest of the groups 1 = cio4, 1 = rb
+    RowNh.append((1, 6))  # 1 = cio4, 6 = cs
+    RowNh.append((5, 9)) # 5 = ch3coo, 9 = ag
+    RowNh.append((5, 10)) # 5 = ch3coo, 10 = hg2
 
-    RowF = [] # F = 6
+    # sorry for the really random numbers and such. There was a change in plans of how to calculate the first column, so i had to get rid of some stuff and got lazy changing them back to nice numbers as there would be a good chance i mess up the code and have to try to decode it for a few hours :'(
+    RowF = [] # F = 13
     for i in range(8):
         RowF.append((13, i+1))  #the negative ion F is identified as 13
-        # DIAMONDS will be suit 0
 
-    RowCl = []    # Cl = 7, Br = 8, I = 9
+    RowCl = []    # Cl = 14 Br = 15, I = 16
     for j in range(3):
         for i in range(5):
-            RowCl.append((j+14, i+1))
+            RowCl.append((j+14, i+1)) # i = posIonCl dictionary
 
-    RowSo = [] #So = 10
+    RowSo = [] #So = 17
     for i in range(7):
         RowSo.append((17, i+1))
-        #CLUBS is suit 2
-    Soluable = displayPositibilities(RowNh, RowF, RowCl, RowSo)
+    Soluable = displayPositibilities(RowNh, RowF, RowCl, RowSo) # prints out the tuples as a string instead of numeros
     return Soluable
 
 def displayPositibilities(RowNh, RowF, RowCl, RowSo):
@@ -227,19 +224,19 @@ def balanceEquation(ionP, ionN):
     :return: (tuple)
     '''
     global positiveCharge, negativeCharge
-    CHARGEP = positiveCharge[ionP]
-    CHARGEN = negativeCharge[ionN]
-    if CHARGEP > CHARGEN:
+    CHARGEP = positiveCharge[ionP] # get the charge of the positive ion
+    CHARGEN = negativeCharge[ionN] # get charge of the negative ion
+    if CHARGEP > CHARGEN: #if chargeP is bigger than chargeN
         coefficient = ("", 2)
-        molarRatio = (1 , 2)
-    elif CHARGEN > CHARGEP:
+        molarRatio = (1 , 2) # ratio is 1 : 2
+    elif CHARGEN > CHARGEP: # if chargeN is bigger than chargeP
         coefficient = (2,"")
-        molarRatio = (2 , 1)
+        molarRatio = (2 , 1) # ratio is 2 : 1
     else:
         coefficient = ("", "")
         molarRatio = (1, 1)
-    IONN = ionN.capitalize()
-    IONPP = ionP.capitalize()
+    IONN = ionN.capitalize() # capitalizes the ionN
+    IONPP = ionP.capitalize() # capitalizes the ionP
     print(f" {coefficient[0]}{IONPP} + {coefficient[1]}{IONN} = {IONPP}{coefficient[0]}{IONN}{coefficient[1]}")
     return molarRatio
 
@@ -256,14 +253,14 @@ def limitReactantCal(molesP, molesN, ionN, ionP, coefficient):
     '''
     global positiveCharge, negativeCharge
     nN = molesP * (coefficient[1]/coefficient[0]) # multiplies the # of molesP by the molar ratio
-    noLim = [molesP, coefficient[1], coefficient[0], coefficient[1]]
+    noLim = [molesP, coefficient[1], coefficient[0]]
     IONN = ionN.capitalize()
     IONP = ionP.capitalize()
     if nN > molesN: # if # of negative moles required is > than the amount of molesN we have, molesN is the limiting reagant
         print(f"The {IONN} is the limiting reagent")
-        return [molesN, coefficient[1]]
+        return [molesN, coefficient[1]] # used in the calMassPrecipitate function
     elif molesN > nN:
-        print(f"The {IONP} is the limiting reagent")
+        print(f"The {IONP} is the limiting reagent") #
         return [molesP, coefficient[0]]
     else:
         print("There is no limiting reagent, they are equal!")
@@ -280,8 +277,8 @@ def calMassPrecipitate(ionP, ionN, limitedReactant, coefficient):
     :return: (float)
     '''
     global ionMass
-    MASS = limitedReactant[0] * (1 / limitedReactant[1])
-    FINAL_MASS = MASS * ((ionMass[ionP] * coefficient[0]) + (ionMass[ionN] * coefficient[1]))
+    MASS = limitedReactant[0] * (1 / limitedReactant[1]) #mass of the reactant
+    FINAL_MASS = MASS * ((ionMass[ionP] * coefficient[0]) + (ionMass[ionN] * coefficient[1])) # the final mass of the entire mixture
     return FINAL_MASS
 
 ### OUTPUTS
@@ -417,37 +414,36 @@ def intro():
     '''
     print("""
     Welcome to the chemistry precipitate calculator! Here is the section of the solubility table you can choose from!                                        
-                                       
-    """)
+                                               (diatomic ions not included)                         """)
 
 def menu():
     print("""
     
     
-             Solubility of Some Common Iconic Compounds in Water at 298.15K
-        ------------------------------------------------------------------------
-        |            | Group 1 Ions  |              |            |             |
-        |            |     NH4       |              |            |             |
-        |    Ions    |     NO3       |      F       |     Cl     |     SO4     |
-        |    (-)     |     CIO3      |              |     Br     |             |
-        |            |     CIO4      |              |     I      |             |    
-        |            |    CH3COO     |              |            |             |
-        |------------|---------------------------------------------------------|
-        |            |               |             |            |              |
-        |   Aqueous  |               |             |            |              |
-        |            |      most     |     most    |    most    |     most     |
-        |   (very)   |               |             |            |              |
-        |  (soluble) |               |             |            |              |
-        |------------|---------------|-------------|------------|--------------|     
-        |            |               |     Li      |            |      Ca      |
-        |            |     RbCIO4    |     Mg      |     Cu     |      Sr      |
-        |            |     CsCIO4    |     Ca      |     Ag     |      Ba      |
-        |   Solid    |    AgCH3COO   |     Sr      |     Hg2    |      Ag      |
-        |    (+)     |  Hg2(CH3COO)2 |     Ba      |     Pb     |      Hg2     |
-        |            |               |     Fe      |     Tl     |      Pb      |
-        |            |               |     Hg      |            |      Ra      |
-        |            |               |     Pb      |            |              |
-        ------------------------------------------------------------------------  
+                                 Solubility of Some Common Iconic Compounds in Water at 298.15K
+                            ------------------------------------------------------------------------
+                            |            | Group 1 Ions  |              |            |             |
+                            |            |     NH4       |              |            |             |
+                            |    Ions    |     NO3       |      F       |     Cl     |     SO4     |
+                            |    (-)     |     CIO3      |              |     Br     |             |
+                            |            |     CIO4      |              |     I      |             |    
+                            |            |    CH3COO     |              |            |             |
+                            |------------|---------------------------------------------------------|
+                            |            |               |             |            |              |
+                            |   Aqueous  |               |             |            |              |
+                            |            |      most     |     most    |    most    |     most     |
+                            |   (very)   |               |             |            |              |
+                            |  (soluble) |               |             |            |              |
+                            |------------|---------------|-------------|------------|--------------|     
+                            |            |               |     Li      |            |      Ca      |
+                            |            |     RbCIO4    |     Mg      |     Cu     |      Sr      |
+                            |            |     CsCIO4    |     Ca      |     Ag     |      Ba      |
+                            |   Solid    |    AgCH3COO   |     Sr      |     Hg2    |      Ag      |
+                            |    (+)     |  Hg2(CH3COO)2 |     Ba      |     Pb     |      Hg2     |
+                            |            |               |     Fe      |     Tl     |      Pb      |
+                            |            |               |     Hg      |            |      Ra      |
+                            |            |               |     Pb      |            |              |
+                            ------------------------------------------------------------------------  
     
 """)
 
@@ -462,28 +458,31 @@ def displayMass(ionP, ionF, massPrecipitate):
 
 # --- MAIN PROGRAM --- #
 if __name__ == "__main__":
-    intro()
-    possibilities = possibilities()
+    intro() #displays info
+    possibilities = possibilities() # creates all the possible combinations of mixtures that would create a precipitate (all of the combinations that are on the displayed on the outputted soluability table
     while True:
         menu()
         #get and calculate all things needed about positive ion
-        ionP = positiveIon()
-        massP = getMass(ionP)
-        chargeP = getChargeP(ionP)
-        volumeP = getVolume()
-        concentrationP = getConcentration()
+        ionP = positiveIon() # user inputs positive ion
+        massP = getMass(ionP) # gets the mass of that ion
+        chargeP = getChargeP(ionP) # gets the charge of that ion
+        volumeP = getVolume() # requests for volume of that ion
+        concentrationP = getConcentration() #requests for concentration of that ion
         #get and calculate all things needed about negative ion
-        ionN = negativeIon()
-        massN = getMass(ionN)
-        chargeN = getChargeN(ionN)
-        volumeN = getVolume()
-        concentrationN = getConcentration()
+        ionN = negativeIon() # user inputs negative ion
+        massN = getMass(ionN) # gets the mass of that ion
+        chargeN = getChargeN(ionN) # gets the charge of that ion
+        volumeN = getVolume() # requests for the volume of that ion
+        concentrationN = getConcentration() # requests for concentration of that ion
+        #calculates total moles per ion
         molesP = moleCal(volumeP, concentrationP)
         molesN = moleCal(volumeN, concentrationN)
+        #checks if the mixture of the two ions creates a precipitate
         possible = checkPossible(ionN, ionP, possibilities)
-        if possible == True:
-            coefficient = balanceEquation(ionP, ionN)
-            limitedReactant = limitReactantCal(molesP, molesN, ionN, ionP, coefficient)
-            massPrecipitate = calMassPrecipitate(ionP, ionN, limitedReactant, coefficient)
-            displayMass(ionP, ionN, massPrecipitate)
+        if possible == True: # if it can, continue with code
+            coefficient = balanceEquation(ionP, ionN) # gets the coefficient of the mixture
+            limitedReactant = limitReactantCal(molesP, molesN, ionN, ionP, coefficient) # determintes which ion is the limiting reagent of this reaction
+            massPrecipitate = calMassPrecipitate(ionP, ionN, limitedReactant, coefficient) # calculates the mass of the precipitate
+            displayMass(ionP, ionN, massPrecipitate) # displays the final mass
+        # ask if they want to do the calculation again
         askContinue()
