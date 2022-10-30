@@ -13,19 +13,20 @@ def possibilities():
     creates 52 cards in a 2D array
     :return: (list)
     '''
-    CARDS = []
     # make an empty list for all the cards (if we make a new variable and copy the "CARDS" list onto it and change the new variable list, it will also change the original list. But if we make an empty list, then it wont change both.
 
     # make an empty array for each suit and append cards to each suit, then add them all together to make the full dark
     RowNh = []
-    for j in range(12): #NH = 1, NO = 2, CIO3 = 3, CIO4 = 4, CHC00 = 5
-        for i in range(4):
-            RowNh.append((j+1, i+1))
+    RowNh.append((1, 1)) # works differently from the rest of the groups
+    RowNh.append((1, 6))
+    RowNh.append((5, 9))
+    RowNh.append((5, 9))
+    RowNh.append((5, 10))
         #CLUBS is suit 3
 
     RowF = [] # F = 6
     for i in range(8):
-        RowF.append((13, i+1))
+        RowF.append((13, i+1))  #the negative ion F is identified as 13
         # DIAMONDS will be suit 0
 
     RowCl = []    # Cl = 7, Br = 8, I = 9
@@ -37,8 +38,6 @@ def possibilities():
     for i in range(7):
         RowSo.append((17, i+1))
         #CLUBS is suit 2
-
-    Soluable = RowNh + RowF + RowCl + RowSo
     Soluable = displayPositibilities(RowNh, RowF, RowCl, RowSo)
     return Soluable
 
@@ -51,18 +50,15 @@ def displayPositibilities(RowNh, RowF, RowCl, RowSo):
     global negIons, posIonsNh, posIonsF, posIonsCl, posIonsSo
     ROWNH = []
     for i in range(len(RowNh)):
-        ROWNH.append(negIons[RowNh[i][0]] + posIonsNh[RowNh[i][1]])
-
+        ROWNH.append(negIons[RowNh[i][0]] + posIonsNh[RowNh[i][1]]) #runs the tuples from that specific group through the dictionary and gets a solid mixture
 
     ROWF = []
     for i in range(len(RowF)):
-        ROWF.append(negIons[RowF[i][0]] + posIonsF[RowF[i][1]])
-
+        ROWF.append(negIons[RowF[i][0]] + posIonsF[RowF[i][1]]) # same thing as ^^
 
     ROWCL = []
     for i in range(len(RowCl)):
         ROWCL.append(negIons[RowCl[i][0]] + posIonsCl[RowCl[i][1]])
-
 
     ROWSO = []
     for i in range(len(RowSo)):
@@ -74,127 +70,6 @@ def displayPositibilities(RowNh, RowF, RowCl, RowSo):
         #
 
 
-# librarys to create all the possible things that create a solid
-negIons = {
-    1 : "h",
-    2 : "li",
-    3 : "na",
-    4 : "k",
-    5 : "rb",
-    6 : "cs",
-    7 : "fr",
-    8 : "nh4",
-    9 : "no3",
-    10 : "cio3",
-    11 : "cio4",
-    12 : "ch3coo",
-    13 : "f",
-    14 : "cl",
-    15 : "br",
-    16 : "i",
-    17 : "so4"
-}
-
-posIonsNh = {
-    1 : "rbcio4",
-    2 : "cscio4",
-    3 : "agch3coo",
-    4 : "hg2(ch3coo)2"
-}
-
-posIonsF = {
-    1 : "li",
-    2 : "mg",
-    3 : "ca",
-    4 : "sr",
-    5 : "ba",
-    6 : "fe",
-    7 : "hg2",
-    8 : "pb"
-}
-
-posIonsCl = {
-    1 : "cu",
-    2 : "ag",
-    3 : "hg2",
-    4 : "pb",
-    5 : "tl"
-}
-
-posIonsSo = {
-    1 : "ca",
-    2 : "sr",
-    3 : "ba",
-    4 : "ag",
-    5 : "hg2",
-    6 : "pb",
-    7 : "ra4"
-}
-
-positiveCharge = {
-    "li" : 1,
-    "mg" : 2,
-    "ca" : 2,
-    "sr" : 2,
-    "ba" : 2,
-    "fe" : 2,
-    "hg2" : 2,
-    "pb" : 2,
-    "cu" : 1,
-    "ag" : 1,
-    "tl" : 1,
-    "ra" : 2,
-    "nh4": 1
-}
-
-negativeCharge = {
-    "no3" : 1,
-    "cio3" : 1,
-    "cio4" : 1,
-    "ch3coo" : 1,
-    "f" : 1,
-    "cl" : 1,
-    "br" : 1,
-    "i" : 1,
-    "so4" : 2,
-    "no3" : 1,
-    "cio3" : 1,
-    "cio4" : 1,
-    "ch3coo" : 1,
-
-}
-
-ionMass = {
-    "li" : 6.941, # 0
-    "mg" : 24.305, # 1
-    "ca" : 40.078, # 2
-    "sr" : 87.620, # 3
-    "ba" : 137.33, # 4
-    "fe" : 55.845, # 5
-    "hg2" : 401.18, # 6
-    "pb" : 207.20, # 7
-    "cu" : 63.546, # 8
-    "ag" : 107.87, # 9
-    "tl" : 204.38, # 10
-    "ra" : 227.00, #11
-    "f" : 18.998, # 12
-    "cl" : 35.453, # 13
-    "br" : 79.904, # 14
-    "i" : 126.90, # 15
-    "so4" : 96.06, # 16
-    "rb" : 000000,
-    "cs" : 000000,
-    "nh4" : 18.04,
-    "no3" : 62.0049,
-    "cio3" : 83.45,
-    "cio4" : 99.45,
-    "ch3coo" : 60.05,
-    "rbcio4": 232.35,
-    "cscio4": 232.35,
-    "agch3coo": 166.9122,
-    "hg2(ch3coo)2": 318.678,
-    ""
-}
 
 
 # --- FUNCTIONS --- #
@@ -314,7 +189,7 @@ def getChargeN(ION):
    '''
    get the charge of the negative ion depending on the ion they selected
    :param ION: (int)
-   :return:
+   :return: (int)
    '''
    ION = ION.lower()
    CHARGE = negativeCharge[ION]
@@ -323,22 +198,34 @@ def getChargeN(ION):
 def moleCal(volume, concentration):
    '''
    calculates the amount of moles in the ion
-   :param MOLES:
-   :return:
+   :param MOLES: (float)
+   :return: (float)
    '''
    moles = volume * concentration
    return moles
 
 def checkPossible(ionN, ionP, possibilities):
+    '''
+    checks if the combination is possible to create a solid
+    :param ionN: (str)
+    :param ionP: (str)
+    :param possibilities: (str)
+    :return: (bool)
+    '''
     TOGETHER = ionN + ionP
     for i in range(len(possibilities)):
-        if TOGETHER == possibilities[i]:
-            return True
+        if TOGETHER == possibilities[i]: #is the combination the user input one of the possible combinations that was created in the list "possibilities"
+            return True # if yes, continue calculations
     print("The two ions will not create a precipitate. ")
-    return False
+    return False # if no, return false
 
 def balanceEquation(ionP, ionN):
-
+    '''
+    balances the equation
+    :param ionP: (str)
+    :param ionN: (str)
+    :return: (tuple)
+    '''
     global positiveCharge, negativeCharge
     CHARGEP = positiveCharge[ionP]
     CHARGEN = negativeCharge[ionN]
@@ -359,33 +246,170 @@ def balanceEquation(ionP, ionN):
 
 def limitReactantCal(molesP, molesN, ionN, ionP, coefficient):
     '''
-    idk
-    :param moles:
-    :return:
+    calculates which is the limiting reagent
+    :param molesP: (float)
+    :param molesN: (float)
+    :param ionN: (str)
+    :param ionP: (str)
+    :param coefficient:  (tuple)
+    :return: (list)
     '''
     global positiveCharge, negativeCharge
-    nN = molesP * (coefficient[1]/coefficient[0])
-
+    nN = molesP * (coefficient[1]/coefficient[0]) # multiplies the # of molesP by the molar ratio
+    noLim = [molesP, coefficient[1], coefficient[0], coefficient[1]]
     IONN = ionN.capitalize()
     IONP = ionP.capitalize()
-    if nN > molesN:
+    if nN > molesN: # if # of negative moles required is > than the amount of molesN we have, molesN is the limiting reagant
         print(f"The {IONN} is the limiting reagent")
-        return (molesN, coefficient[1])
+        return [molesN, coefficient[1]]
     elif molesN > nN:
         print(f"The {IONP} is the limiting reagent")
-        return (molesP, coefficient[0])
+        return [molesP, coefficient[0]]
     else:
         print("There is no limiting reagent, they are equal!")
-        return (molesP, coefficient[1], coefficient[0])
+        noLim.pop()
+        return noLim
 
 def calMassPrecipitate(ionP, ionN, limitedReactant, coefficient):
-
+    '''
+    calculates the mass of the precipitate
+    :param ionP: (str)
+    :param ionN: (str)
+    :param limitedReactant: (list)
+    :param coefficient: (tuple)
+    :return: (float)
+    '''
     global ionMass
     MASS = limitedReactant[0] * (1 / limitedReactant[1])
     FINAL_MASS = MASS * ((ionMass[ionP] * coefficient[0]) + (ionMass[ionN] * coefficient[1]))
     return FINAL_MASS
 
 ### OUTPUTS
+
+# librarys to create all the possible things that create a solid
+negIons = {
+    1 : "cio4",
+    2 : "li",
+    3 : "na",
+    4 : "k",
+    5 : "ch3coo",
+    6 : "cs",
+    7 : "fr",
+    13 : "f",
+    14 : "cl",
+    15 : "br",
+    16 : "i",
+    17 : "so4"
+}
+
+posIonsNh = {
+    1: "rb",
+    2: "li",
+    3: "na",
+    4: "k",
+    6: "cs",
+    7: "fr",
+    8: "nh4",
+    9: "ag",
+    10: "hg2",
+    11: "h"
+}
+
+posIonsF = {
+    1 : "li",
+    2 : "mg",
+    3 : "ca",
+    4 : "sr",
+    5 : "ba",
+    6 : "fe",
+    7 : "hg2",
+    8 : "pb"
+}
+
+posIonsCl = {
+    1 : "cu",
+    2 : "ag",
+    3 : "hg2",
+    4 : "pb",
+    5 : "tl"
+}
+
+posIonsSo = {
+    1 : "ca",
+    2 : "sr",
+    3 : "ba",
+    4 : "ag",
+    5 : "hg2",
+    6 : "pb",
+    7 : "ra4"
+}
+
+positiveCharge = {
+    "li" : 1,
+    "mg" : 2,
+    "ca" : 2,
+    "sr" : 2,
+    "ba" : 2,
+    "fe" : 2,
+    "hg2" : 2,
+    "pb" : 2,
+    "cu" : 1,
+    "ag" : 1,
+    "tl" : 1,
+    "ra" : 2,
+    "nh4": 1,
+    "rb": 1,
+    "cs": 1,
+    "h" :  1,
+    "na" : 1,
+    "k" : 1,
+    "fr" : 1,
+}
+
+negativeCharge = {
+    "no3" : 1,
+    "cio3" : 1,
+    "cio4" : 1,
+    "ch3coo" : 1,
+    "f" : 1,
+    "cl" : 1,
+    "br" : 1,
+    "i" : 1,
+    "so4" : 2,
+}
+
+ionMass = {
+    "li" : 6.941, # 0
+    "mg" : 24.305, # 1
+    "ca" : 40.078, # 2
+    "sr" : 87.620, # 3
+    "ba" : 137.33, # 4
+    "fe" : 55.845, # 5
+    "hg2" : 401.18, # 6
+    "pb" : 207.20, # 7
+    "cu" : 63.546, # 8
+    "ag" : 107.87, # 9
+    "tl" : 204.38, # 10
+    "ra" : 227.00, #11
+    "f" : 18.998, # 12
+    "cl" : 35.453, # 13
+    "br" : 79.904, # 14
+    "i" : 126.90, # 15
+    "so4" : 96.06, # 16
+    "h": 1.00784,
+    "na": 22.989769,
+    "k": 39.0983,
+    "rb": 85.4678,
+    "cs": 132.90545,
+    "fr": 223,
+    "nh4" : 18.04,
+    "no3" : 62.0049,
+    "cio3" : 83.45,
+    "cio4" : 99.45,
+    "ch3coo" : 60.05,
+}
+
+
 def intro():
     '''
     is the introduction of what this is
@@ -463,17 +487,3 @@ if __name__ == "__main__":
             massPrecipitate = calMassPrecipitate(ionP, ionN, limitedReactant, coefficient)
             displayMass(ionP, ionN, massPrecipitate)
         askContinue()
-
-
-# WHEN YOU PRITN OUT THE ANSWER TO THE USER, MAKE SURE TO CONVERT THE cl or fe or whatever BACK INTO CAPITALIZATION. USING THE FUNCTION .capitalize() (capitalizes the first letter)
-
-
-# I PLAN THIS TO BE A DISPLAY THING, WHERE IN THE MENU, YOU CAN TYPE "ELEMENTS"
-DISPLAY = (("Lithium", 6.9410), ("Magnesium", 24.305), ("Calcium", 40.078), ("Strontium", 87.620), ("Barium", 137.33), ("Iron", 55.845), ("Mercury", 200.59), ("Lead", 207.20) , ("Copper", 63.546), ("Silver", 107.87), ("Thallium", 204.38), ("Fluorine", 18.998), ("Chlorine", 35.453), ("Bromine", 79.904), ("Iodine", 126.90), ("Sulfate", 96.06))
-#if askDisplay True:
- #  for i in range(len(DISPLAY)):
-  #     for j in range(len(DISPLAY)):
-   #        print(f"Name: {DISPLAY[i][j]}")
-    #       idk im gonna cry
-
-
