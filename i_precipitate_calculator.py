@@ -262,7 +262,7 @@ def limitReactantCal(molesP, molesN, ionN, ionP, coefficient):
     '''
     global positiveCharge, negativeCharge
     nN = molesP * (coefficient[1]/coefficient[0]) # multiplies the # of molesP by the molar ratio
-    noLim = [molesP, coefficient[1], coefficient[0]]
+    values = ["moles", "coefficient"]
 
     if ionP == "nh4":
         IONP = ionP.upper()
@@ -276,14 +276,19 @@ def limitReactantCal(molesP, molesN, ionN, ionP, coefficient):
 
     if nN > molesN: # if # of negative moles required is > than the amount of molesN we have, molesN is the limiting reagant
         print(f"The {IONN} is the limiting reagent")
-        return [molesN, coefficient[1]] # used in the calMassPrecipitate function
+        values[0] = molesN
+        values[1] = coefficient[1]
+        return values # used in the calMassPrecipitate function
     elif molesN > nN:
         print(f"The {IONP} is the limiting reagent") #
-        return [molesP, coefficient[0]]
+        values[0] = molesP
+        values[1] = coefficient[0]
+        return values
     else:
         print("There is no limiting reagent, they are equal!")
-        noLim.pop()
-        return noLim
+        values[0] = molesP
+        values[1] = coefficient[1]
+        return values
 
 def calMassPrecipitate(ionP, ionN, limitedReactant, coefficient):
     '''
@@ -405,7 +410,7 @@ ionMass = {
     "cu" : 63.546, # 8
     "ag" : 107.87, # 9
     "tl" : 204.38, # 10
-    "ra" : 227.00, #11
+    "ra" : 226.00, #11
     "f" : 18.998, # 12
     "cl" : 35.453, # 13
     "br" : 79.904, # 14
